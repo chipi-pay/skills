@@ -50,4 +50,4 @@ PINs (4-digit) are:
 - Vulnerable to shoulder-surfing
 - Must be entered every transaction
 
-Always default to passkey. If user has PIN wallet, suggest migration via `useMigrateWalletToPasskey`.
+Always default to passkey. If user has PIN wallet, suggest migration via the `migrate-to-passkey-dialog` component (see `chipi-pin-to-passkey-migration` skill).

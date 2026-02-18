@@ -53,7 +53,7 @@ Average confirmation: ~15-30 seconds on StarkNet.
 | **Passkey** (biometric) | Strong — device-bound | **Yes** |
 | PIN (4-digit) | Weak — limited entropy | No — warn user |
 
-Migration: `useMigrateWalletToPasskey` converts PIN to passkey. After migration, PIN stops working.
+Migration: Use the `migrate-to-passkey-dialog` component to convert PIN to passkey. After migration, PIN stops working.
 
 ## API
 
@@ -91,7 +91,7 @@ Clerk (recommended), Firebase, Supabase, Better Auth
 
 ## 21 SDK Hooks
 
-**Wallet:** useCreateWallet, useChipiWallet, useGetWallet, useMigrateWalletToPasskey
+**Wallet:** useCreateWallet, useChipiWallet, useGetWallet
 
 **Tokens:** useTransfer, useApprove, useGetTokenBalance
 

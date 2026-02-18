@@ -41,7 +41,7 @@ This provides:
 - `PayWithCryptoCard` — Main payment UI with both paths
 - `PayWithChipiButton` — Pay with Chipi wallet (passkey/PIN)
 - `PayWithExternalWalletButton` — Redirect to pay.chipipay.com
-- `WalletPinDialog` — PIN/passkey confirmation
+- `TransactionSigner` — Universal auth dialog (auto-detects passkey vs PIN)
 
 Install shadcn dependencies:
 ```bash

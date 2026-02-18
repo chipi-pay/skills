@@ -41,6 +41,11 @@
       "name": "chipi-starknet-guide",
       "path": "skills/chipi-starknet-guide/SKILL.md",
       "description": "StarkNet reference — addresses, tokens, transactions, errors, troubleshooting."
+    },
+    {
+      "name": "chipi-pin-to-passkey-migration",
+      "path": "skills/chipi-pin-to-passkey-migration/SKILL.md",
+      "description": "Migrate PIN-encrypted wallets to passkey (PRF) authentication with re-encryption."
     }
   ]
 }

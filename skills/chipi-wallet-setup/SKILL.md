@@ -100,10 +100,9 @@ await createWallet({
 - Must be entered on every transaction
 - Recommend passkey instead for stronger security and better UX
 
-If they insist on PIN, proceed but suggest future migration:
-```tsx
-import { useMigrateWalletToPasskey } from "@chipi-stack/nextjs";
-// Later: migrate PIN wallet to passkey
+If they insist on PIN, proceed but suggest future migration via the `chipi-pin-to-passkey-migration` skill, which uses the `migrate-to-passkey-dialog` component:
+```
+Call get_component_code("migrate-to-passkey-dialog")
 ```
 
 ### Wallet Types
@@ -194,7 +193,7 @@ export default function WalletPage() {
 - `useGetWallet` — Fetch wallet by user ID
 - `useTransfer` — Transfer USDC/ETH/STRK
 - `useGetTokenBalance` — Fetch on-chain balance
-- `useMigrateWalletToPasskey` — Convert PIN wallet to passkey
+- `migrate-to-passkey-dialog` — Component to convert PIN wallet to passkey (see `chipi-pin-to-passkey-migration` skill)
 
 ## Troubleshooting
 
@@ -204,4 +203,4 @@ export default function WalletPage() {
 | "Wallet not found" | User hasn't created a wallet yet — show create dialog |
 | "Transaction fails" | Check balance, verify recipient address format (0x + 64 hex) |
 | "Session keys not working" | Verify wallet is CHIPI type (not READY) |
-| "PIN security warning" | Recommend passkey migration via `useMigrateWalletToPasskey` |
+| "PIN security warning" | Recommend passkey migration via `migrate-to-passkey-dialog` component |

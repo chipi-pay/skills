@@ -61,17 +61,16 @@ Get wallet by external user ID.
 | externalUserId | string | Yes | Your app's user ID |
 | bearerToken | string | Yes | Chipi API key |
 
-## useMigrateWalletToPasskey
+## PIN-to-Passkey Migration
 
-Convert PIN-encrypted wallet to passkey/biometric. After migration, old PIN stops working.
+Migration from PIN to passkey is handled by the `migrate-to-passkey-dialog` component (not an SDK hook), because private key storage varies by project.
 
-### Parameters
+See the `chipi-pin-to-passkey-migration` skill for full integration guide, or use:
+```
+Call get_component_code("migrate-to-passkey-dialog")
+```
 
-| Param | Type | Required | Description |
-|-------|------|----------|-------------|
-| wallet | object | Yes | Existing wallet |
-| currentEncryptKey | string | Yes | Current PIN |
-| bearerToken | string | Yes | Chipi API key |
+After migration, old PIN stops working — only passkey/biometric works.
 
 ## useTransfer
 
