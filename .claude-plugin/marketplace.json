@@ -1,0 +1,46 @@
+{
+  "name": "chipi-pay-skills",
+  "description": "Chipi Pay — self-custody StarkNet wallets, USDC payments, session keys, SKU marketplace, and DeFi staking for Next.js, React, Expo, or REST API.",
+  "version": "1.0.0",
+  "author": "Chipi Pay",
+  "homepage": "https://www.chipipay.com/",
+  "repository": "https://github.com/chipi-pay/skills",
+  "license": "MIT",
+  "skills": [
+    {
+      "name": "chipi-wallet-setup",
+      "path": "skills/chipi-wallet-setup/SKILL.md",
+      "description": "End-to-end wallet integration with passkey auth, balance display, and USDC transfers."
+    },
+    {
+      "name": "chipi-payment-flow",
+      "path": "skills/chipi-payment-flow/SKILL.md",
+      "description": "Accept USDC payments with Chipi wallet + external wallet checkout and webhooks."
+    },
+    {
+      "name": "chipi-sku-marketplace",
+      "path": "skills/chipi-sku-marketplace/SKILL.md",
+      "description": "Build a service marketplace — airtime, gift cards, gaming credits (Mexico only)."
+    },
+    {
+      "name": "chipi-defi-staking",
+      "path": "skills/chipi-defi-staking/SKILL.md",
+      "description": "Add VESU USDC staking and withdrawal for earning yield on StarkNet."
+    },
+    {
+      "name": "chipi-session-keys",
+      "path": "skills/chipi-session-keys/SKILL.md",
+      "description": "Frictionless transactions — authenticate once, execute many (CHIPI wallet only)."
+    },
+    {
+      "name": "chipi-custom-contracts",
+      "path": "skills/chipi-custom-contracts/SKILL.md",
+      "description": "Call any StarkNet contract through Chipi's gasless infrastructure."
+    },
+    {
+      "name": "chipi-starknet-guide",
+      "path": "skills/chipi-starknet-guide/SKILL.md",
+      "description": "StarkNet reference — addresses, tokens, transactions, errors, troubleshooting."
+    }
+  ]
+}
