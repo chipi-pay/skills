@@ -2,6 +2,20 @@
 
 Rules to prevent generic AI-generated UI patterns in financial applications.
 
+## Generic Pattern Blocklist
+
+Patterns that scream "AI-generated". NEVER use any of these:
+
+- **NEVER** purple-to-blue gradient from top-left to bottom-right (`bg-gradient-to-br from-purple-500 to-blue-500`)
+- **NEVER** `rounded-full` avatar with gradient border ring (`ring-2 ring-gradient`)
+- **NEVER** 3-column card grid with `rounded-3xl` + `shadow-2xl` + identical padding — the default "features section" slop
+- **NEVER** hero with centered `text-6xl` + `text-gray-500` subtitle + single purple CTA button
+- **NEVER** `bg-white dark:bg-gray-900` as your only color tokens — commit to a real palette
+- **NEVER** generic "Get Started" / "Learn More" / "Sign Up Free" button text without context
+- **NEVER** decorative blob SVGs (`absolute -z-10 blur-3xl opacity-30`) as background interest — use grain texture or halftone patterns instead
+- **NEVER** `animate-bounce` on scroll indicators or CTAs — use `animate-fade-in-up` with staggered delays
+- **NEVER** icon + title + description card repeated 3-6 times in a grid as your only layout pattern
+
 ## Money Display
 
 ### Rules

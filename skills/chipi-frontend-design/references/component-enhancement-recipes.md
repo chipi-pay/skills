@@ -305,6 +305,67 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp
 </section>
 ```
 
+## Tabs — Neo-Brutal Active State
+
+### Before (default shadcn)
+```jsx
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+
+<Tabs defaultValue="tab1">
+  <TabsList>
+    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+  </TabsList>
+  <TabsContent value="tab1">Content 1</TabsContent>
+  <TabsContent value="tab2">Content 2</TabsContent>
+</Tabs>
+```
+
+### After (Chipi)
+```jsx
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+
+const TAB_CLASSES = "neo-border rounded-none neo-shadow-sm neo-push px-6 py-3 font-bold text-sm uppercase tracking-wider transition-all data-[state=active]:bg-[var(--neo-fg)] data-[state=active]:text-[var(--neo-bg)] data-[state=active]:translate-x-[4px] data-[state=active]:translate-y-[4px] data-[state=active]:shadow-none data-[state=inactive]:bg-[var(--neo-bg)] data-[state=inactive]:text-[var(--neo-fg)]";
+
+<Tabs defaultValue="tab1">
+  <TabsList className="flex flex-wrap gap-3 bg-transparent">
+    <TabsTrigger value="tab1" className={TAB_CLASSES}>Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2" className={TAB_CLASSES}>Tab 2</TabsTrigger>
+  </TabsList>
+  <TabsContent value="tab1">Content 1</TabsContent>
+  <TabsContent value="tab2">Content 2</TabsContent>
+</Tabs>
+```
+
+## Alert Banner — Actionable + Branded
+
+### Before (default shadcn)
+```jsx
+import { Alert, AlertDescription } from "@/components/ui/alert";
+
+<Alert>
+  <AlertDescription>Something happened.</AlertDescription>
+</Alert>
+```
+
+### After (Chipi)
+```jsx
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertTriangle, ArrowRight } from "lucide-react";
+
+<Alert className="neo-border rounded-none bg-amber-50 dark:bg-amber-950/30 border-amber-500/40">
+  <AlertTriangle className="h-4 w-4 text-amber-600" />
+  <AlertDescription className="flex items-center justify-between">
+    <span className="font-medium text-amber-900 dark:text-amber-200">
+      Session key expires in 15 minutes
+    </span>
+    <button className="inline-flex items-center gap-1 text-sm font-bold text-amber-700 hover:text-amber-900 underline underline-offset-4">
+      Renew <ArrowRight className="h-3 w-3" />
+    </button>
+  </AlertDescription>
+</Alert>
+```
+
 ## Success Celebration — Checkmark Draw
 
 ### Before
