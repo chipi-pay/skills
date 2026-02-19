@@ -132,9 +132,14 @@ For fine-grained control:
 
 ## UI Guidance
 
-Use the `chipi-frontend-design` skill for full design system guidance. Key session key-specific rules:
-- Session status: show remaining calls and expiry time with `tabular-nums`
-- Active session: emerald badge. Expired: amber badge. Revoked: muted badge
-- One-time auth prompt: show clear explanation that "this authorizes multiple transactions"
-- Revocation: destructive button style with confirmation dialog
-- Session creation: step indicator (Generate > Register > Active)
+> **Load `chipi-frontend-design` before generating any UI for this feature.**
+
+Key session key-specific rules:
+- **Session status badges**: Active = `bg-success/10 text-success border-success/20` (`--success` token). Expired = `bg-amber-500/10 text-amber-600 border-amber-500/20`. Revoked = `bg-muted text-muted-foreground`
+- **Remaining calls**: `font-mono tabular-nums` — show "12 / 100 calls remaining" format
+- **Expiry countdown**: `font-mono tabular-nums` with `Clock` icon (`h-4 w-4`) — "5h 23m remaining"
+- **One-time auth prompt**: glassmorphic card explaining "This authorizes up to N transactions for M hours without re-authentication". Show `ShieldCheck` icon
+- **Revocation**: `variant="destructive"` button with confirmation dialog. Show `AlertTriangle` icon + "This cannot be undone"
+- **Session creation**: use `StepProgress` with steps `["Generate", "Register", "Active"]`. Show `Loader2 animate-spin` during registration
+- **Session list**: card per session with status badge, remaining calls, expiry. Use `hover:-translate-y-0.5` on cards
+- **Responsive**: session cards stack vertically on mobile, 2-column grid at `md:`

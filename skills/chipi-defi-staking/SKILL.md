@@ -120,9 +120,14 @@ export function WithdrawForm({ wallet }: { wallet: any }) {
 
 ## UI Guidance
 
-Use the `chipi-frontend-design` skill for full design system guidance. Key staking-specific rules:
-- Yield/APY display: `font-mono tabular-nums text-emerald-500` — green for positive yield
-- Stake/unstake amounts: `font-mono tabular-nums` with `$` prefix and `USDC` suffix
-- Confirmation before staking: show amount, protocol (VESU), and estimated yield
-- Loading skeleton for balance regions, not spinners
-- Success animations for stake/unstake completion
+> **Load `chipi-frontend-design` before generating any UI for this feature.**
+
+Key staking-specific rules:
+- **Yield/APY display**: `font-mono tabular-nums` in `text-success` (`--success` token = emerald) for positive yield. Show percentage with 2 decimal places
+- **Stake/unstake amounts**: `font-mono tabular-nums` with `$` prefix and `USDC` suffix. Same input pattern as payment flow (absolute-positioned labels)
+- **Staked balance**: use `text-4xl md:text-5xl font-extrabold font-mono tabular-nums`. Loading state: skeleton (`animate-pulse bg-muted rounded-lg h-14 w-48`)
+- **Confirmation before staking**: show amount, protocol name ("VESU"), and estimated yield in `text-success`. Use glassmorphic card for the summary
+- **Success**: SVG checkmark-draw celebration animation on stake/unstake completion
+- **Pending withdrawal**: show amber badge with `Clock` icon + remaining time in `tabular-nums`
+- **Risk indicator**: show protocol info with `Info` icon — "VESU Protocol — Audited DeFi lending"
+- **Responsive**: staking dashboard single-column on mobile, side-by-side (stake form + balance) at `md:`

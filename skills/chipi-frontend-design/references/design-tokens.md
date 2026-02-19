@@ -113,22 +113,103 @@ Base: 4px grid. Use Tailwind spacing utilities.
 
 ## Shadows
 
-These map to Tailwind's `shadow-*` utilities. If defining as CSS custom properties:
+Full shadow scale mapped to Tailwind's `shadow-*` utilities:
 
 ```css
 :root {
-  /* Card default */
-  --shadow-sm: 0 1px 2px oklch(0 0 0 / 5%);
+  /* Subtle — input fields, badges */
+  --shadow-xs: 0 1px 2px oklch(0 0 0 / 3%);
 
-  /* Card hover */
+  /* Default — cards at rest */
+  --shadow-sm: 0 1px 3px oklch(0 0 0 / 5%), 0 1px 2px oklch(0 0 0 / 3%);
+
+  /* Hover — cards on hover, dropdowns */
   --shadow-md: 0 4px 6px oklch(0 0 0 / 7%), 0 2px 4px oklch(0 0 0 / 5%);
 
-  /* Dialog */
+  /* Elevated — dialogs, popovers */
   --shadow-lg: 0 10px 15px oklch(0 0 0 / 10%), 0 4px 6px oklch(0 0 0 / 5%);
 
-  /* Glassmorphic */
+  /* Prominent — modals, toasts */
+  --shadow-xl: 0 20px 25px oklch(0 0 0 / 10%), 0 8px 10px oklch(0 0 0 / 4%);
+
+  /* Maximum — full-screen overlays */
+  --shadow-2xl: 0 25px 50px oklch(0 0 0 / 15%);
+
+  /* Glassmorphic — frosted glass components */
   --shadow-glass: 0 8px 32px oklch(0 0 0 / 8%);
+
+  /* Inner — inset for input focus, pressed states */
+  --shadow-inner: inset 0 2px 4px oklch(0 0 0 / 5%);
 }
+```
+
+### Shadow Usage Guide
+
+| Token | Tailwind Class | Usage |
+|-------|---------------|-------|
+| `--shadow-xs` | `shadow-xs` | Input fields, badges, chips |
+| `--shadow-sm` | `shadow-sm` | Cards at rest |
+| `--shadow-md` | `shadow-md` | Cards on hover, dropdowns |
+| `--shadow-lg` | `shadow-lg` | Dialogs, popovers |
+| `--shadow-xl` | `shadow-xl` | Modals, toast notifications |
+| `--shadow-2xl` | `shadow-2xl` | Full-screen overlays |
+| `--shadow-glass` | (custom) | Glassmorphic components |
+| `--shadow-inner` | `shadow-inner` | Input focus, pressed buttons |
+
+## Icon System
+
+Use **Lucide React** exclusively. Never mix icon libraries.
+
+```bash
+npm install lucide-react
+```
+
+### Sizing Convention
+
+| Context | Size | Class |
+|---------|------|-------|
+| Inline text | 16px | `h-4 w-4` |
+| Button icon | 16px | `h-4 w-4` |
+| Card / section | 20px | `h-5 w-5` |
+| Feature highlight | 24px | `h-6 w-6` |
+| Dialog status | 48px | `h-12 w-12` |
+| Success celebration | 64px | `h-16 w-16` |
+
+### Common Icons
+
+| Purpose | Icon | Import |
+|---------|------|--------|
+| Security / encryption | `ShieldCheck` | `lucide-react` |
+| Biometric / passkey | `Fingerprint` | `lucide-react` |
+| PIN / key | `KeyRound` | `lucide-react` |
+| Loading spinner | `Loader2` + `animate-spin` | `lucide-react` |
+| Copy to clipboard | `Copy` / `Check` (toggle) | `lucide-react` |
+| Send / transfer | `ArrowUpRight` | `lucide-react` |
+| Warning | `AlertTriangle` | `lucide-react` |
+| Success | `CheckCircle2` | `lucide-react` |
+| External link | `ExternalLink` | `lucide-react` |
+
+## Layout & Container
+
+```css
+/* Max content widths */
+--max-w-content: 1280px;   /* Main content area */
+--max-w-prose: 65ch;        /* Text-heavy sections */
+--max-w-dialog: 28rem;      /* sm:max-w-md — dialogs */
+--max-w-card: 24rem;        /* Individual card max */
+```
+
+### Grid Patterns
+
+```tsx
+{/* Card grid — responsive */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+{/* Feature grid — 2 column on tablet+ */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+{/* Centered content — text sections */}
+<div className="mx-auto max-w-prose px-4 md:px-6">
 ```
 
 ## Breakpoints

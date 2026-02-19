@@ -126,9 +126,14 @@ Each SKU has a specific regex pattern for the reference field (phone number, acc
 
 ## UI Guidance
 
-Use the `chipi-frontend-design` skill for full design system guidance. Key marketplace-specific rules:
-- SKU cards: use glassmorphic card style with hover lift (`hover:-translate-y-0.5 hover:shadow-md`)
-- Category icons: use consistent icon set, not emoji
-- Price display: `font-mono tabular-nums` with 2 decimal places, always show `$` prefix
-- Purchase confirmation: show SKU name, price, and reference field before auth prompt
-- Loading: skeleton cards during SKU list fetch, not spinners
+> **Load `chipi-frontend-design` before generating any UI for this feature.**
+
+Key marketplace-specific rules:
+- **SKU cards**: glassmorphic style (`bg-white/70 dark:bg-black/50 backdrop-blur-xl border border-white/20`) with hover lift (`hover:-translate-y-0.5 hover:shadow-md transition-all duration-200`)
+- **Category icons**: use Lucide React icons (`h-5 w-5`), never emoji. Map categories to icons consistently (e.g., `Phone` for telecom, `Zap` for utilities)
+- **Price display**: `font-mono tabular-nums` with 2 decimal places (`$10.00`), always show `$` prefix. Use `--accent` color for price highlight
+- **Purchase confirmation**: show SKU name, price (`font-mono tabular-nums`), and reference field. Reference input gets `aria-label` describing expected format
+- **Loading**: skeleton card grid (`animate-pulse bg-muted rounded-xl h-48`) during fetch, not spinners. Show 6 skeleton cards in `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`
+- **Pagination**: use shadcn Pagination component, show page numbers in `tabular-nums`
+- **Empty state**: "No products available" with `ShoppingBag` icon, not blank page
+- **Responsive**: single-column card grid on mobile, 2 columns at `md:`, 3 at `lg:`

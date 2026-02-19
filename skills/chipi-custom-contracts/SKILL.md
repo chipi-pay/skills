@@ -121,9 +121,14 @@ console.log("Transaction hash:", result.txHash);
 
 ## UI Guidance
 
-Use the `chipi-frontend-design` skill for full design system guidance. Key contract-specific rules:
-- Contract addresses: `font-mono text-sm` truncated display with copy button
-- Calldata preview: show formatted calldata before signing in a code block
-- Multi-call batching: list all calls in confirmation dialog before auth
-- Transaction signing: step indicator (Authenticating > Signing > Done)
-- Security: show ShieldCheck icon and "Verify contract before interacting" warning
+> **Load `chipi-frontend-design` before generating any UI for this feature.**
+
+Key contract-specific rules:
+- **Contract addresses**: `font-mono text-sm` truncated to `0x1234...abcd` with `Copy`→`Check` icon swap on click. Add `toast.success("Address copied")`
+- **Calldata preview**: show formatted calldata in `font-mono text-xs bg-muted p-4 rounded-lg` code block before signing. Use `--border` color for the code block border
+- **Multi-call batching**: list all calls in confirmation dialog as numbered steps. Each call shows: function name, contract (truncated), and args
+- **Transaction signing**: use `TransactionSigner` with step indicator (Authenticating → Signing → Done). Steps use `--accent` for active state
+- **Security warning**: amber card with `AlertTriangle` icon (`h-5 w-5`) + "Verify this contract address before interacting" in `text-amber-600`
+- **ABI explorer**: show entrypoints in a list with `Code2` icon. Input fields for each parameter with type labels
+- **Transaction hash**: after success, show hash in `font-mono text-sm` with `ExternalLink` icon linking to block explorer (opens in new tab)
+- **Responsive**: calldata preview uses horizontal scroll on mobile (`overflow-x-auto`)

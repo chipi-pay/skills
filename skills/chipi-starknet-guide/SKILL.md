@@ -105,9 +105,14 @@ Clerk (recommended), Firebase, Supabase, Better Auth
 
 ## UI Guidance
 
-Use the `chipi-frontend-design` skill for full design system guidance. Key StarkNet UI rules:
-- Addresses: `font-mono text-sm` truncated to `0x1234...abcd` with copy-to-clipboard
-- Token amounts: `font-mono tabular-nums` — USDC (2 decimals), ETH/STRK (4 decimals)
-- Transaction status: use step indicator showing PENDING > PROCESSING > COMPLETED lifecycle
-- Block explorer links: open in new tab with external link icon
-- Error codes: show actionable descriptions, not raw hex codes
+> **Load `chipi-frontend-design` before generating any UI for this feature.**
+
+Key StarkNet UI rules:
+- **Addresses**: `font-mono text-sm` truncated to `0x1234...abcd` (6+4 chars). Copy button with `Copy`→`Check` icon swap + `toast.success("Copied")`
+- **Token amounts**: `font-mono tabular-nums` — USDC uses 2 decimals (`$10.00`), ETH/STRK uses 4 decimals (`0.0042 ETH`). Always show token symbol suffix
+- **Transaction status**: use `StepProgress` with steps `["Submitted", "Processing", "Confirmed"]`. Submitted = `--accent`, Confirmed = `--success`
+- **Block explorer links**: use `ExternalLink` icon (`h-4 w-4`) next to transaction hashes. `target="_blank" rel="noopener noreferrer"`
+- **Error codes**: map hex error codes to human-readable messages. Show "Contract reverted: insufficient balance" not `0x4e6f742...`. Use `text-destructive` color
+- **Chain indicator**: small badge showing "StarkNet" with chain icon near addresses and transactions
+- **Gas display**: show "Gasless" badge in `text-success` when sponsored, or gas estimate in `font-mono tabular-nums` when not
+- **Responsive**: addresses use `text-xs` on mobile to prevent overflow, `text-sm` at `md:`

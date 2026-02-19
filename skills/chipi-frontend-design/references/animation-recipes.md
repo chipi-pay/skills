@@ -49,6 +49,15 @@ CSS-first animations using `tw-animate-css` plus custom keyframes.
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
 }
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  30% { transform: translate(3%, -15%); }
+  50% { transform: translate(12%, 9%); }
+  70% { transform: translate(9%, 4%); }
+  90% { transform: translate(-1%, 7%); }
+}
 ```
 
 ## Tailwind Utility Classes
@@ -169,3 +178,71 @@ const currentStep = 2;
   ))}
 </div>
 ```
+
+## Grain Texture Overlay
+
+Adds animated SVG noise texture to hero/feature sections for visual depth.
+
+### CSS Utility (add to globals.css `@layer utilities`)
+```css
+.grain-overlay {
+  position: relative;
+  isolation: isolate;
+}
+.grain-overlay::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  animation: grain 8s steps(10) infinite;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+}
+.dark .grain-overlay::before {
+  opacity: 0.3;
+}
+```
+
+### Usage
+```jsx
+{/* Content must use relative z-10 to sit above the grain */}
+<section className="grain-overlay bg-gradient-to-br from-orange-50 via-white to-emerald-50">
+  <h1 className="relative z-10 text-7xl font-extrabold">Hero Title</h1>
+  <p className="relative z-10 text-xl">Subtitle</p>
+</section>
+```
+
+## Responsive Animation Rules
+
+### Reduced Motion
+Always respect `prefers-reduced-motion`:
+```css
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .grain-overlay::before {
+    animation: none !important;
+  }
+}
+```
+
+### Mobile Adjustments
+- **Stagger delays**: keep to 100ms increments max (avoid > 300ms total delay on mobile — users won't wait)
+- **Hover effects**: only on `md:` and above — mobile doesn't hover. Card lift is fine because `transition-all` handles touch gracefully
+- **Hero animations**: `text-5xl` on mobile, `md:text-7xl` on tablet+. Animation stays the same
+- **Step progress**: reduce dot width to `w-6` on mobile if more than 4 steps
+- **Dialog entrance**: `slide-in-from-bottom-4` on mobile (more dramatic), `slide-in-from-bottom-2` on desktop
+- **Touch targets**: all animated interactive elements must be minimum 44x44px
+
+### Performance
+- All animations are CSS-only — no JavaScript animation libraries
+- `will-change` is NOT needed for these simple transforms
+- Grain overlay uses `steps(10)` to reduce GPU compositing
+- `backdrop-blur` is GPU-intensive — limit to one layer per screen (dialog OR card, not both stacked)

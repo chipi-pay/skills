@@ -10,6 +10,20 @@ tags: [design, ux, frontend, fintech]
 
 Apply these rules to every UI you generate for Chipi-powered applications.
 
+## Prerequisites
+
+Install these packages before using design recipes:
+
+```bash
+npm install tw-animate-css sonner lucide-react
+```
+
+- **tw-animate-css** — CSS animation utilities (import in globals.css: `@import "tw-animate-css"`)
+- **sonner** — Toast notifications (wrap app with `<Toaster />`)
+- **lucide-react** — Icon system (see Icon System below)
+- **@simplewebauthn/browser** + **@simplewebauthn/types** — Required for passkey/PRF flows
+- **crypto-es** — Required for PIN encryption flows
+
 ## Typography
 
 - **NEVER** use Inter, Roboto, or system-ui as display fonts
@@ -52,11 +66,36 @@ shadow-lg
 ```
 Glass adapts to any background — gradients, images, solid colors.
 
+## Icon System — Lucide React
+
+Use `lucide-react` exclusively. Consistent sizing:
+
+| Context | Size | Class |
+|---------|------|-------|
+| Inline (beside text) | 16px | `h-4 w-4` |
+| Button icon | 16px | `h-4 w-4` |
+| Card/section icon | 20px | `h-5 w-5` |
+| Feature/hero icon | 24px | `h-6 w-6` |
+| Dialog status icon | 48px | `h-12 w-12` |
+
+- **NEVER** use emoji as icons in UI chrome (buttons, badges, nav)
+- **ALWAYS** add `aria-label` on icon-only buttons
+- Stroke width: default (2) for UI, 1.5 for decorative
+
+```tsx
+import { ShieldCheck, Fingerprint, Loader2, Copy, Check } from "lucide-react"
+// Standard pattern:
+<Button variant="ghost" size="icon" aria-label="Copy address">
+  <Copy className="h-4 w-4" />
+</Button>
+```
+
 ## Backgrounds
 
 - Hero sections: gradient backgrounds (`bg-gradient-to-br from-orange-50 via-white to-emerald-50`)
 - **NEVER** flat `#fff` or `bg-white` for full-page backgrounds
 - Add depth with layered elements or subtle noise textures
+- Use `grain-overlay` class on hero/feature sections for animated grain texture
 
 ## Fintech UX Guardrails
 
@@ -66,6 +105,25 @@ Glass adapts to any background — gradients, images, solid colors.
 - Loading: use skeleton screens, not spinners, for data regions
 - Errors: actionable messages ("Transfer failed — check recipient address" not "Error")
 - Copy-to-clipboard: show brief flash feedback (`animate-pulse` for 300ms)
+
+## Responsive Design
+
+Design mobile-first (375px base), enhance with breakpoint prefixes:
+
+| Breakpoint | Prefix | Usage |
+|-----------|--------|-------|
+| 375px | (default) | Mobile — single column, `text-5xl` hero |
+| 640px | `sm:` | Mobile landscape |
+| 768px | `md:` | Tablet — 2-column grids, `text-7xl` hero |
+| 1024px | `lg:` | Desktop — wider margins |
+
+Key rules:
+- Hero text: `text-5xl md:text-7xl` — never overflow on mobile
+- Balance display: `text-4xl md:text-5xl` — scale down for mobile
+- Card grids: single column on mobile, `md:grid-cols-2 lg:grid-cols-3`
+- Dialogs: `max-w-[calc(100vw-2rem)] sm:max-w-md` — full width on mobile
+- Touch targets: minimum 44x44px on all interactive elements
+- Step indicators: keep horizontal but reduce dot width (`w-6` on mobile vs `w-8`)
 
 ## Anti-Slop Rules
 

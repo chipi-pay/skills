@@ -207,9 +207,14 @@ export default function WalletPage() {
 
 ## UI Guidance
 
-Use the `chipi-frontend-design` skill for full design system guidance. Key wallet-specific rules:
-- Show trust indicators: ShieldCheck icon near encryption steps, "Hardware-backed" badges for passkey
-- Balance display: `text-5xl font-extrabold font-mono tabular-nums` — always 2 decimal places
-- Wallet address: truncate to `0x1234...abcd`, copy-to-clipboard with visual flash feedback
-- Wallet creation success: use checkmark-draw SVG animation, not `animate-pulse`
-- Step progress indicator for multi-step wallet creation flow
+> **Load `chipi-frontend-design` before generating any UI for this feature.**
+
+Key wallet-specific rules:
+- **Trust indicators**: `ShieldCheck` icon (lucide-react, `h-5 w-5`) near encryption steps. Passkey: emerald border + "Hardware-backed, 256-bit encryption". PIN: default border + "4-digit encryption"
+- **Balance display**: `text-4xl md:text-5xl font-extrabold font-mono tabular-nums` — always 2 decimal places, use `--accent` color for the `$` prefix
+- **Wallet address**: truncate to `0x1234...abcd` in `font-mono text-sm`, copy-to-clipboard with `Copy`→`Check` icon swap (1.5s) and `toast.success("Copied")`
+- **Wallet creation success**: SVG checkmark-draw animation (`animate-checkmark` + `animate-scale-bounce`), never `animate-pulse`
+- **Step progress**: use `StepProgress` component with steps `["Detect", "Choose", "Secure", "Create"]`
+- **Loading**: skeleton placeholder (`animate-pulse bg-muted rounded-lg`) for balance, not spinner
+- **Empty state**: when no wallet exists, show CTA card with `Fingerprint` icon + "Create your wallet" in `text-lg font-semibold`
+- **Responsive**: dialog uses `max-w-[calc(100vw-2rem)] sm:max-w-md`

@@ -148,9 +148,14 @@ The core encryption logic (`reEncryptPrivateKey`) is storage-agnostic — it tak
 
 ## UI Guidance
 
-Use the `chipi-frontend-design` skill for full design system guidance. Key migration-specific rules:
-- Step progress bar showing all 5 migration steps (Verify > Register > Authenticate > Encrypt > Done)
-- Safety messaging: "Your PIN still works until migration completes" with ShieldCheck icon
-- Biometric prompt: show Fingerprint icon with clear "Follow your device prompt" instruction
-- Success: celebration animation (checkmark-draw), not plain `animate-pulse`
-- Error recovery: actionable message + Retry button, never just "Error"
+> **Load `chipi-frontend-design` before generating any UI for this feature.**
+
+Key migration-specific rules:
+- **Step progress**: use `StepProgress` component with 5 steps: `["Verify PIN", "Register", "Authenticate", "Encrypt", "Done"]`. Active step uses `--accent`, completed steps filled
+- **Safety messaging**: show `ShieldCheck` icon (`h-5 w-5 text-success`) + "Your PIN still works until migration completes" in `text-muted-foreground`. This is critical for user confidence
+- **PIN input**: use `InputOTP` with 4 masked slots (`mask` prop). Each slot: `w-14 h-14 text-xl border-2`. Disable during processing with `disabled={isProcessing}`
+- **Biometric prompt**: show `Fingerprint` icon (`h-12 w-12 text-accent animate-pulse`) with "Follow your device's biometric prompt" in `text-sm text-muted-foreground`
+- **Processing guard**: show "Do not close this window..." in `text-xs text-muted-foreground animate-pulse` during all processing steps. Hide close button with `showCloseButton={false}`
+- **Success**: SVG checkmark-draw celebration (`animate-checkmark` + `animate-scale-bounce`) in emerald circle (`bg-emerald-500/20 border-2 border-emerald-500`). Message: "Your wallet is now protected by your passkey"
+- **Error recovery**: distinguish PIN errors (show PIN input again) from passkey errors (show Cancel + Retry buttons). Actionable messages: "Passkey registration was cancelled — tap Retry to try again"
+- **Responsive**: dialog uses `sm:max-w-md`. PIN input slots scale down to `w-12 h-12` on very small screens if needed
