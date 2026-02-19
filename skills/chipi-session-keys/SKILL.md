@@ -129,3 +129,12 @@ For fine-grained control:
 | "Session expired" | Re-create and re-register session |
 | "No remaining calls" | Session exhausted — re-register |
 | "Registration failed" | Check wallet balance for on-chain tx |
+
+## UI Guidance
+
+Use the `chipi-frontend-design` skill for full design system guidance. Key session key-specific rules:
+- Session status: show remaining calls and expiry time with `tabular-nums`
+- Active session: emerald badge. Expired: amber badge. Revoked: muted badge
+- One-time auth prompt: show clear explanation that "this authorizes multiple transactions"
+- Revocation: destructive button style with confirmation dialog
+- Session creation: step indicator (Generate > Register > Active)

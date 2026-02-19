@@ -123,3 +123,12 @@ Each SKU has a specific regex pattern for the reference field (phone number, acc
 | "Invalid reference" | Reference doesn't match SKU's regex pattern |
 | "Purchase failed" | Check wallet USDC balance |
 | "SKU not available" | SKU may be temporarily out of stock |
+
+## UI Guidance
+
+Use the `chipi-frontend-design` skill for full design system guidance. Key marketplace-specific rules:
+- SKU cards: use glassmorphic card style with hover lift (`hover:-translate-y-0.5 hover:shadow-md`)
+- Category icons: use consistent icon set, not emoji
+- Price display: `font-mono tabular-nums` with 2 decimal places, always show `$` prefix
+- Purchase confirmation: show SKU name, price, and reference field before auth prompt
+- Loading: skeleton cards during SKU list fetch, not spinners

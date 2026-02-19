@@ -46,6 +46,11 @@
       "name": "chipi-pin-to-passkey-migration",
       "path": "skills/chipi-pin-to-passkey-migration/SKILL.md",
       "description": "Migrate PIN-encrypted wallets to passkey (PRF) authentication with re-encryption."
+    },
+    {
+      "name": "chipi-frontend-design",
+      "path": "skills/chipi-frontend-design/SKILL.md",
+      "description": "Design system and UX guidance — typography, color, motion, glassmorphic components, and fintech guardrails."
     }
   ]
 }

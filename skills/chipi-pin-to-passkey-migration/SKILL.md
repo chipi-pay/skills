@@ -145,3 +145,12 @@ The core encryption logic (`reEncryptPrivateKey`) is storage-agnostic — it tak
 | "Failed to derive encryption key" | PRF output was null | Retry authentication step; may be a browser issue |
 | Passkey works but old flows still show PIN | `authMethod` not updated in metadata | Check that `storeAuthMethod("prf")` was called and metadata update succeeded |
 | Migration succeeds but TransactionSigner shows PIN | localStorage has stale `chipi_auth_method` | Clear localStorage or call `storeAuthMethod("prf")` explicitly |
+
+## UI Guidance
+
+Use the `chipi-frontend-design` skill for full design system guidance. Key migration-specific rules:
+- Step progress bar showing all 5 migration steps (Verify > Register > Authenticate > Encrypt > Done)
+- Safety messaging: "Your PIN still works until migration completes" with ShieldCheck icon
+- Biometric prompt: show Fingerprint icon with clear "Follow your device prompt" instruction
+- Success: celebration animation (checkmark-draw), not plain `animate-pulse`
+- Error recovery: actionable message + Retry button, never just "Error"

@@ -118,3 +118,12 @@ console.log("Transaction hash:", result.txHash);
 | "Invalid calldata" | Verify encoding and argument count |
 | "Insufficient balance" | Check token balance |
 | "Approval needed" | Use useApprove before spending tokens |
+
+## UI Guidance
+
+Use the `chipi-frontend-design` skill for full design system guidance. Key contract-specific rules:
+- Contract addresses: `font-mono text-sm` truncated display with copy button
+- Calldata preview: show formatted calldata before signing in a code block
+- Multi-call batching: list all calls in confirmation dialog before auth
+- Transaction signing: step indicator (Authenticating > Signing > Done)
+- Security: show ShieldCheck icon and "Verify contract before interacting" warning

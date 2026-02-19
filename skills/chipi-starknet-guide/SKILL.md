@@ -102,3 +102,12 @@ Clerk (recommended), Firebase, Supabase, Better Auth
 **SKU Marketplace:** useGetSkuList, useGetSku, usePurchaseSku, useGetSkuPurchase
 
 **Utilities:** useCallAnyContract, useGetTransactionList
+
+## UI Guidance
+
+Use the `chipi-frontend-design` skill for full design system guidance. Key StarkNet UI rules:
+- Addresses: `font-mono text-sm` truncated to `0x1234...abcd` with copy-to-clipboard
+- Token amounts: `font-mono tabular-nums` — USDC (2 decimals), ETH/STRK (4 decimals)
+- Transaction status: use step indicator showing PENDING > PROCESSING > COMPLETED lifecycle
+- Block explorer links: open in new tab with external link icon
+- Error codes: show actionable descriptions, not raw hex codes

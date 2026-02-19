@@ -133,3 +133,12 @@ export async function POST(request: Request) {
 | "Merchant wallet not set" | Add NEXT_PUBLIC_MERCHANT_WALLET to .env.local |
 | "Payment failed" | Check sender balance, verify amounts |
 | "Webhook not receiving" | Ensure endpoint is publicly accessible |
+
+## UI Guidance
+
+Use the `chipi-frontend-design` skill for full design system guidance. Key payment-specific rules:
+- Amount inputs: `font-mono tabular-nums` with `$` prefix and `USDC` suffix labels
+- Confirmation dialog before every payment — show recipient, amount, and "gasless" fee note
+- Transaction signing: show step indicator (Authenticating > Signing > Done)
+- Success: celebration animation (checkmark-draw), not plain text
+- Error messages must be actionable: "Insufficient balance: $4.50 available" not "Transfer failed"

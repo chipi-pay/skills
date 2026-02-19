@@ -117,3 +117,12 @@ export function WithdrawForm({ wallet }: { wallet: any }) {
 | "Insufficient balance" | Check USDC balance before staking |
 | "Amount must be > 0" | Validate amount input |
 | "Withdrawal pending" | VESU pool may have low liquidity — wait and retry |
+
+## UI Guidance
+
+Use the `chipi-frontend-design` skill for full design system guidance. Key staking-specific rules:
+- Yield/APY display: `font-mono tabular-nums text-emerald-500` — green for positive yield
+- Stake/unstake amounts: `font-mono tabular-nums` with `$` prefix and `USDC` suffix
+- Confirmation before staking: show amount, protocol (VESU), and estimated yield
+- Loading skeleton for balance regions, not spinners
+- Success animations for stake/unstake completion

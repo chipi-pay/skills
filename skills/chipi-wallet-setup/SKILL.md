@@ -204,3 +204,12 @@ export default function WalletPage() {
 | "Transaction fails" | Check balance, verify recipient address format (0x + 64 hex) |
 | "Session keys not working" | Verify wallet is CHIPI type (not READY) |
 | "PIN security warning" | Recommend passkey migration via `migrate-to-passkey-dialog` component |
+
+## UI Guidance
+
+Use the `chipi-frontend-design` skill for full design system guidance. Key wallet-specific rules:
+- Show trust indicators: ShieldCheck icon near encryption steps, "Hardware-backed" badges for passkey
+- Balance display: `text-5xl font-extrabold font-mono tabular-nums` — always 2 decimal places
+- Wallet address: truncate to `0x1234...abcd`, copy-to-clipboard with visual flash feedback
+- Wallet creation success: use checkmark-draw SVG animation, not `animate-pulse`
+- Step progress indicator for multi-step wallet creation flow
