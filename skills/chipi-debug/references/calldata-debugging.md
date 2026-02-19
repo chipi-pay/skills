@@ -111,7 +111,7 @@ calldata: ["3", "100", "200", "300"]
 After a transaction fails, check the details:
 
 ### Starkscan
-```
+```text
 https://starkscan.co/tx/{txHash}
 ```
 Look for:
@@ -121,7 +121,7 @@ Look for:
 - **Input Data:** The actual calldata sent
 
 ### Voyager
-```
+```text
 https://voyager.online/tx/{txHash}
 ```
 Look for:

@@ -2,9 +2,9 @@
 
 How to move tokens from Solana to StarkNet for use in your Chipi-powered app.
 
-## The Only Direct Route: LayerSwap
+## Primary Route: LayerSwap
 
-**LayerSwap is the only major bridge supporting direct Solana → StarkNet transfers.**
+**LayerSwap is a well-established bridge supporting direct Solana → StarkNet transfers.** Other bridges like StarkGate, rhino.fi, and Orbiter may also offer Solana routes — check their current availability.
 
 - **URL:** https://layerswap.io
 - **Supported tokens:** SOL, USDC (SPL), USDT (SPL)

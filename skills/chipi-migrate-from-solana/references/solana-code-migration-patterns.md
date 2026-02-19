@@ -102,7 +102,7 @@ await transfer({
 
 ### Program → Contract
 
-```
+```text
 Anchor (Solana):                    Cairo (StarkNet):
 ├─ lib.rs (program)                ├─ lib.cairo (contract)
 ├─ instructions/                   ├─ (functions in contract)

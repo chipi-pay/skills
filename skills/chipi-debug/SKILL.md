@@ -67,7 +67,7 @@ Error received
 | "Insufficient balance" | Not enough tokens for the transfer | Call `useGetTokenBalance` and compare to transfer amount. Check correct token. | Fund the wallet. Ensure amount doesn't exceed balance. |
 | "Invalid address" | Malformed StarkNet address in `recipientAddress` | Validate with `/^0x[0-9a-fA-F]{64}$/`. Check for trailing spaces. | Fix the address format. See Step 6. |
 | "Invalid amount" | Amount is 0, negative, or malformed | Check that amount > 0 and is a valid number | Pass a positive number. SDK handles decimals. |
-| Transaction timeout | Transaction submitted but not confirmed in time | Check StarkNet network status. May be temporary congestion. | Retry the transaction. If persistent, check if the wallet has been deployed. |
+| Transaction timeout | Transaction submitted but not confirmed in time | Check StarkNet network status. It may be temporary congestion. | Retry the transaction. If persistent, check if the wallet has been deployed. |
 | "EXECUTION_FAILED" | On-chain execution reverted | Check the transaction on Starkscan/Voyager for revert reason. | Fix the calldata or check contract requirements. |
 
 ## Step 4: Session Key Debugging

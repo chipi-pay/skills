@@ -39,7 +39,7 @@ These are the concepts that trip up Solana developers the most. Read this sectio
 
 On Solana, programs are stateless and data lives in separate accounts. You pass accounts into instructions. On StarkNet, contracts have their own storage — like Ethereum but with native AA.
 
-```
+```text
 Solana:   Program + Data Account + PDA → instruction with accounts[]
 StarkNet: Contract with storage → function call with calldata[]
 ```
@@ -106,7 +106,7 @@ For each Solana program the app interacts with:
 
 ### Anchor IDL → Cairo ABI
 
-```
+```text
 Anchor IDL:                          Cairo ABI:
 ├─ instructions[]                    ├─ external functions[]
 │  ├─ name: "initialize"            │  ├─ name: "initialize"
@@ -122,7 +122,7 @@ Key difference: Anchor IDL declares account constraints (ownership, mutability, 
 ### Check if a StarkNet equivalent exists
 
 Common protocols already on StarkNet:
-- **USDC:** `0x053c91253bc9682c04929ca02ed00b3e423f6710d2ee7e0d5ebb06f3ecf368a8`
+- **USDC:** `0x053c91253bc9682c04929ca02ed00b3e423f6710d2ee7e0d5ebb06f3ecf368a8` (bridged) — verify the current canonical address on [Starkscan](https://starkscan.co) as native USDC may use a different contract
 - **ETH:** `0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7`
 - **STRK:** `0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d`
 - **VESU** (lending): Available via Chipi's `useStakeVesuUsdc`
@@ -383,7 +383,7 @@ Solana uses Base58-encoded 32-byte public keys. StarkNet uses hex-encoded felt25
 
 ## Step 9: Bridge Assets
 
-**LayerSwap is the only direct Solana → StarkNet bridge.**
+**LayerSwap is the primary direct Solana → StarkNet bridge.** Other options like StarkGate, rhino.fi, and Orbiter may also support cross-chain transfers — check their current route availability.
 
 See `references/solana-token-bridge-guide.md` for the full bridge flow.
 

@@ -4,7 +4,7 @@ Deep mapping of Solana's account-based architecture to StarkNet's contract stora
 
 ## The Core Difference
 
-```
+```text
 SOLANA                                    STARKNET
 ┌─────────────┐                          ┌─────────────────┐
 │   Program    │ ← stateless code        │    Contract      │
