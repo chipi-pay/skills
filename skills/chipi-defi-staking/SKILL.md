@@ -108,7 +108,6 @@ export function WithdrawForm({ wallet }: { wallet: any }) {
 - `useWithdrawVesuUsdc` — Withdraw USDC from VESU
 
 > **Why VESU:** VESU is a battle-tested lending protocol on StarkNet. Deposits earn yield automatically from borrower interest — no active management needed.
-
 > **Why auto-approval:** The SDK handles the ERC-20 approve step internally, so you don't need a separate approval transaction. One passkey tap = approve + stake.
 
 ## Key Rules
