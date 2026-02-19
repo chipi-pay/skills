@@ -68,19 +68,19 @@ Wormhole supports Solana ↔ StarkNet bridging, but:
 - LayerSwap is simpler for most use cases
 - Only consider Wormhole for tokens not supported by LayerSwap
 
-## Token Address Mapping
+## Token Address Mapping (StarkNet Mainnet — as of Feb 2026)
 
 | Token | Solana (SPL) | StarkNet |
 |-------|-------------|----------|
-| USDC | `EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v` | `0x053c91253bc9682c04929ca02ed00b3e423f6710d2ee7e0d5ebb06f3ecf368a8` |
+| USDC | `EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v` | `0x033068f6539f8e6e6b131e6b2b814e6c34a5224bc66947c47dab9dfee93b35fb` |
 | ETH | Wrapped: `7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs` | `0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7` |
 | USDT | `Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB` | `0x068f5c6a61780768455de69077e07e89787839bf8166decfbf92b645209c0fb8` |
 | STRK | N/A (StarkNet native) | `0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d` |
-| SOL | Native | N/A (no native SOL on StarkNet — bridge to ETH or USDC) |
+| SOL | Native | Available via Hyperlane/StarkGate bridge (launched Oct 2025) — check bridge UIs for the current wrapped SOL address |
 
 ## Important Notes
 
-- **SOL doesn't exist on StarkNet** — bridge to USDC or ETH instead
+- **SOL bridging is available** via Hyperlane/StarkGate (launched Oct 29, 2025). Alternatively, bridge to USDC or ETH for broader DeFi compatibility.
 - **Bridge time varies:** 2-10 minutes is typical, but congestion can delay
 - **Test with small amounts first** before bridging large sums
 - **Double-check addresses:** StarkNet addresses are 0x + 64 hex chars (not Base58)

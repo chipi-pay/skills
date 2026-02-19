@@ -71,18 +71,23 @@ await transfer({
 Web3.js v2 uses a pipe-based API pattern. If the app uses this, the migration is the same — just different syntax to remove.
 
 ```tsx
-// BEFORE (@solana/web3.js v2 — pipe pattern)
-import { pipe } from "@solana/web3.js";
-import { createTransferInstruction } from "@solana/spl-token";
+// BEFORE (@solana/kit — formerly @solana/web3.js v2)
+import {
+  createTransactionMessage,
+  appendTransactionMessageInstructions,
+  setTransactionMessageFeePayerSigner,
+  setTransactionMessageLifetimeUsingBlockhash,
+} from "@solana/kit";
+import { getTransferInstruction } from "@solana-program/token";
 
-const tx = pipe(
-  createTransaction({ version: 0 }),
-  addInstruction(createTransferInstruction(fromAta, toAta, authority, amount)),
-  setFeePayer(wallet.publicKey),
-  setRecentBlockhash(blockhash),
+const message = createTransactionMessage({ version: 0 });
+const withInstructions = appendTransactionMessageInstructions(
+  [getTransferInstruction({ source: fromAta, destination: toAta, authority, amount })],
+  message,
 );
-const signedTx = await wallet.signTransaction(tx);
-const sig = await sendAndConfirmTransaction(connection, signedTx);
+const withFeePayer = setTransactionMessageFeePayerSigner(walletSigner, withInstructions);
+const withLifetime = setTransactionMessageLifetimeUsingBlockhash(blockhash, withFeePayer);
+const sig = await sendAndConfirmTransaction(withLifetime);
 ```
 
 ```tsx
@@ -161,6 +166,7 @@ Key differences:
 ```tsx
 // BEFORE (Anchor client)
 import { Program, AnchorProvider } from "@coral-xyz/anchor";
+import { BN } from "@coral-xyz/anchor";
 import { IDL, MyProgram } from "./idl/my_program";
 
 const provider = new AnchorProvider(connection, wallet, {});

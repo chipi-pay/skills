@@ -199,7 +199,10 @@ export async function POST(request: Request) {
     .update(body)
     .digest("hex");
 
-  if (signature !== expected) {
+  // Use constant-time comparison to prevent timing attacks
+  const sigBuf = Buffer.from(signature ?? "", "utf8");
+  const expBuf = Buffer.from(expected, "utf8");
+  if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) {
     return Response.json({ error: "Invalid signature" }, { status: 401 });
   }
 

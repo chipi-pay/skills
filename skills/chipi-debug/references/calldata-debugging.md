@@ -79,8 +79,12 @@ calldata: [recipientAddress, "10000000", "0"]
 // WRONG (loses precision for large numbers):
 calldata: [1000000000000000000]  // JS number can't represent this exactly
 
-// CORRECT (use strings):
+// CORRECT (use strings — for single-felt parameters):
 calldata: ["1000000000000000000"]
+
+// CORRECT (for u256 parameters — must be TWO felts [low, high]):
+calldata: ["1000000000000000000", "0"]
+// u256 values always need [low_128, high_128]. For most practical values, high = "0".
 ```
 
 ### 4. Human-readable amount in calldata

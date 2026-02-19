@@ -89,7 +89,7 @@ const result = await callContract({
 
 Every PDA pattern maps to a storage variable or mapping in Cairo. The "derivation" step disappears entirely:
 
-```
+```text
 Solana:    seeds → PDA address → fetch account → deserialize
 StarkNet:  contract.storage_variable.read(key) → done
 ```
@@ -192,7 +192,7 @@ await callContract({
 
 Solana's Sealevel runtime executes non-overlapping transactions in parallel. This is why transactions must declare accounts upfront — the runtime needs to detect conflicts.
 
-```
+```text
 Transaction A: [Account 1, Account 2] → can run in parallel with
 Transaction B: [Account 3, Account 4] → no overlap
 
@@ -203,7 +203,7 @@ Transaction C: [Account 1, Account 3] → must wait for A or B
 
 StarkNet's sequencer orders transactions, executes them, and generates a ZK proof of validity. No parallel execution model for developers to think about.
 
-```
+```text
 Transactions → Sequencer → Execution → ZK Proof → L1 Verification
 ```
 
