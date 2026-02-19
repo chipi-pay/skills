@@ -1,16 +1,18 @@
 ---
-name: chipi-migrate-from-evm-solana
-description: Migrate an existing EVM (Ethereum, Base, Polygon, Arbitrum, Optimism) or Solana dapp to StarkNet with Chipi. Maps familiar concepts (ethers.js, MetaMask, Anchor, Phantom) to Chipi equivalents. Use when user says "migrate from Ethereum", "move from Solana to StarkNet", "port my EVM app", "convert from Solidity", "StarkNet equivalent of", or "migrate my dapp".
+name: chipi-migrate-from-evm
+description: Migrate an existing EVM (Ethereum, Base, Polygon, Arbitrum, Optimism) dapp to StarkNet with Chipi. Maps familiar concepts (ethers.js, viem, MetaMask, WalletConnect) to Chipi equivalents. Use when user says "migrate from Ethereum", "port my EVM app", "convert from Solidity", "StarkNet equivalent of", or "migrate my dapp".
 license: MIT
 metadata:
   author: Chipi Pay
-  version: 1.0.0
+  version: 1.1.0
   mcp-server: chipi-registry
 ---
 
-# Migrate from EVM / Solana to StarkNet with Chipi
+# Migrate from EVM to StarkNet with Chipi
 
-Help builders who already have working apps on EVM chains (Ethereum, Base, Polygon, Arbitrum, Optimism) or Solana port them to StarkNet using Chipi's infrastructure. They understand crypto — StarkNet is just unfamiliar territory.
+Help builders who already have working apps on EVM chains (Ethereum, Base, Polygon, Arbitrum, Optimism) port them to StarkNet using Chipi's infrastructure. They understand crypto — StarkNet is just unfamiliar territory.
+
+> **Migrating from Solana instead?** Load the `chipi-migrate-from-solana` skill — it has deep Solana-specific mappings for Anchor, wallet-adapter, PDAs, SPL tokens, and the account model.
 
 ## When in Doubt, Ask
 
@@ -18,7 +20,7 @@ If the user's existing codebase uses patterns, libraries, or contract interactio
 
 ## Why Migrate?
 
-> **Why this matters:** Builders on EVM or Solana already have working apps, users, and revenue. They're not starting from zero — they're upgrading. StarkNet + Chipi gives them superpowers their current chain can't match.
+> **Why this matters:** Builders on EVM already have working apps, users, and revenue. They're not starting from zero — they're upgrading. StarkNet + Chipi gives them superpowers their current chain can't match.
 
 - **StarkNet:** 10-100x cheaper gas through ZK rollup validity proofs
 - **Chipi:** Gasless UX — your users pay zero gas, ever
@@ -50,31 +52,14 @@ If the user's existing codebase uses patterns, libraries, or contract interactio
 
 > **Why batch calls matter:** On EVM, approve + swap = 2 separate transactions (2 gas fees, 2 confirmations). On StarkNet via Chipi, approve + swap = 1 transaction (0 gas, 1 passkey tap). This alone is a massive UX upgrade.
 
-### Solana → StarkNet
-
-| Solana Concept | StarkNet Equivalent | Chipi Abstraction |
-|---|---|---|
-| Phantom / wallet adapter | Native account abstraction | `useCreateWallet` (passkey) |
-| Program (contract) | Contract (Cairo) | Call via `useCallAnyContract` |
-| SPL Token transfer | ERC-20 transfer | `useTransfer` |
-| PDA (program derived address) | Contract storage | Standard contract patterns |
-| Anchor framework | Cairo + Scarb | For contract devs only |
-| Transaction fees (~$0.001) | Transaction fees (~$0.01) | Gasless through Chipi |
-| Instruction | External function call | `useCallAnyContract` |
-| Account (data storage) | Contract storage variables | Storage slots in Cairo |
-| CPI (cross-program invocation) | Contract-to-contract calls | Native in Cairo |
-| Rent / rent-exempt | No rent concept | One-time deploy cost |
-
-> **Why no rent:** Solana charges rent for storing data. StarkNet doesn't — once your contract is deployed, it stays deployed. No ongoing costs for your users.
-
 ## Step 1: Audit the Existing App
 
 Analyze what the current app does. Ask the user about:
 - **Token operations** — transfers, approvals, swaps, staking
 - **Contract interactions** — which functions, what calldata, which contracts
-- **Auth flow** — MetaMask? WalletConnect? Email + wallet? Phantom?
+- **Auth flow** — MetaMask? WalletConnect? Email + wallet?
 - **User data** — stored on-chain vs off-chain
-- **Dependencies** — ethers.js? viem? web3.js? @solana/web3.js? Anchor?
+- **Dependencies** — ethers.js? viem? web3.js? wagmi?
 
 > **Why audit first:** Migrating blind leads to missed features and broken flows. Map everything before changing anything.
 
@@ -91,7 +76,7 @@ Common tokens and protocols already on StarkNet:
 - **Many DeFi protocols** have deployed on StarkNet — check ecosystem sites
 
 ### Do you need to deploy a Cairo contract?
-If the app has custom Solidity/Anchor logic:
+If the app has custom Solidity logic:
 - **Option A:** Find a StarkNet equivalent (many DeFi protocols have deployed)
 - **Option B:** Rewrite in Cairo and deploy (load `chipi-custom-contracts` skill for integration)
 - **Option C:** Use Chipi's built-in features if they cover the use case (payments, staking, SKUs)
@@ -108,8 +93,8 @@ If the app has custom Solidity/Anchor logic:
 ## Step 3: Replace Wallet Layer
 
 **Remove:**
-- ethers.js / viem / web3.js / @solana/web3.js
-- MetaMask / WalletConnect / Phantom / wallet-adapter integration
+- ethers.js / viem / web3.js / wagmi
+- MetaMask / WalletConnect integration
 - Seed phrase generation / storage
 - Manual wallet connection flows
 
@@ -186,7 +171,7 @@ await transfer({
 
 ## Step 6: Handle Custom Contracts
 
-If you have Solidity or Anchor contracts with custom logic:
+If you have Solidity contracts with custom logic:
 
 **Option A: Find StarkNet equivalent**
 Many DeFi protocols, NFT standards, and utilities have StarkNet versions. Check the StarkNet ecosystem.
@@ -214,8 +199,7 @@ If the custom contract just does transfers, approvals, staking, or marketplace o
 
 For detailed function-level mappings, see:
 - `references/evm-to-starknet-mapping.md` — Detailed ethers.js / viem → Chipi SDK mapping
-- `references/solana-to-starknet-mapping.md` — Detailed Anchor / @solana/web3.js → Chipi SDK mapping
-- `references/token-bridge-guide.md` — How to bridge assets from EVM/Solana to StarkNet
+- `references/token-bridge-guide.md` — How to bridge assets from EVM chains to StarkNet
 
 ## UI Guidance
 
