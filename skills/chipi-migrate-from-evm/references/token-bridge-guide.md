@@ -13,8 +13,8 @@ When migrating an app from EVM or Solana to StarkNet, your users' existing token
 - **URL:** https://starkgate.starknet.io
 - **Supported tokens:** ETH, USDC, USDT, DAI, WBTC, and more
 - **Direction:** Ethereum L1 → StarkNet L2 (and back)
-- **Time:** L1 → L2: ~15-30 minutes | L2 → L1: ~12 hours (finality period)
-- **Fees:** Ethereum gas fees for the bridge transaction
+- **Time:** L1 → L2: ~15-30 minutes | L2 → L1: ~7-9 hours (up to ~10 hours depending on network conditions), plus a second claim step on Ethereum requiring additional L1 gas
+- **Fees:** Ethereum gas fees for L1 → L2. L2 → L1 withdrawal initiation paid in STRK (since Starknet v0.14.0)
 
 ### How it works
 1. User connects MetaMask (Ethereum) and a StarkNet wallet
@@ -33,7 +33,7 @@ When migrating an app from EVM or Solana to StarkNet, your users' existing token
 
 - **URL:** https://layerswap.io
 - **Supported chains:** Ethereum, Base, Arbitrum, Optimism, Polygon, Solana, and 20+ more
-- **Supported tokens:** ETH, USDC, USDT, and chain-specific tokens
+- **Supported tokens:** ETH, USDC, USDT, and chain-specific tokens (Solana → StarkNet support is token- and route-dependent)
 - **Time:** 2-10 minutes (fast!)
 - **Fees:** Small bridging fee (0.1-0.5%)
 
@@ -55,7 +55,7 @@ When migrating an app from EVM or Solana to StarkNet, your users' existing token
 
 - **URL:** https://orbiter.finance
 - **Supported chains:** Ethereum, StarkNet, Arbitrum, Optimism, Base, zkSync, Polygon, and more
-- **Time:** 1-5 minutes
+- **Time:** 30 seconds to ~5 minutes (varies by route and maker liquidity)
 - **Fees:** Variable, competitive with LayerSwap
 
 ### How it works
@@ -71,7 +71,7 @@ When migrating an app from EVM or Solana to StarkNet, your users' existing token
 3. **Quick L2 transfers:** Orbiter — fastest for small amounts
 
 ### For Solana → StarkNet migration:
-1. **Only option:** LayerSwap — the only major bridge supporting Solana → StarkNet directly
+1. **Primary option:** LayerSwap — the main bridge supporting Solana → StarkNet directly (token/route availability varies)
 2. Alternative: Solana → CEX → StarkNet withdrawal via LayerSwap
 
 ### Integration pattern:
@@ -83,7 +83,7 @@ function FundWallet({ walletAddress }: { walletAddress: string }) {
       <p>Your StarkNet address: {walletAddress}</p>
       <p>Bridge tokens from another chain:</p>
       <a
-        href={`https://layerswap.io/?destNetwork=STARKNET_MAINNET&destAddress=${walletAddress}`}
+        href={`https://layerswap.io/?to=STARKNET_MAINNET&destAddress=${walletAddress}`}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -109,8 +109,9 @@ After bridging, tokens arrive at these StarkNet addresses:
 
 ## Important Notes
 
-- **Bridge time varies:** L1 → L2 is slower (15-30 min) than L2 → L2 (1-10 min)
-- **Withdrawal to L1 is slow:** StarkNet → Ethereum takes ~12 hours due to ZK proof finality
+- **Bridge time varies:** L1 → L2 is slower (15-30 min) than L2 → L2 (30s-10 min)
+- **Withdrawal to L1 is slow:** StarkNet → Ethereum takes ~7-9 hours (up to ~10h) due to ZK proof finality, plus a second claim transaction on L1
 - **Double-check addresses:** StarkNet addresses are 0x + 64 hex chars (longer than EVM's 40 chars)
+  - Verify token addresses on [Voyager](https://voyager.online) or [Starkscan](https://starkscan.co) — check that the token name, symbol, and decimals match expectations
 - **Test with small amounts first** before bridging large sums
 - **Gas on source chain:** Users still need gas on the source chain to initiate the bridge — but once on StarkNet, everything through Chipi is gasless
