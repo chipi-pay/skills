@@ -83,7 +83,7 @@ function FundWallet({ walletAddress }: { walletAddress: string }) {
       <p>Your StarkNet address: {walletAddress}</p>
       <p>Bridge tokens from another chain:</p>
       <a
-        href={`https://layerswap.io/?to=STARKNET_MAINNET&destAddress=${walletAddress}`}
+        href={`https://layerswap.io/app/?to=STARKNET_MAINNET&destAddress=${walletAddress}`}
         target="_blank"
         rel="noopener noreferrer"
       >
