@@ -89,7 +89,7 @@ Clerk (recommended), Firebase, Supabase, Better Auth
 | "Invalid PIN" | Wrong encryption key |
 | "SKU not available" | Mexico only |
 
-## 21 SDK Hooks
+## 20 SDK Hooks
 
 **Wallet:** useCreateWallet, useChipiWallet, useGetWallet
 

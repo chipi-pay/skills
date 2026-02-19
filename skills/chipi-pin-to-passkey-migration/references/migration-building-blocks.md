@@ -36,14 +36,14 @@ try {
 
 Used in migration to verify the user's PIN before proceeding.
 
-### derivePinFromPRF(prfOutput) → string
+### deriveKeyFromPRF(prfOutput) → string
 
-Derives a PIN-equivalent encryption key from PRF output. Takes the first 32 characters of the base64-encoded PRF output.
+Derives an encryption key from PRF output. Takes the first 32 characters of the base64-encoded PRF output.
 
 ```typescript
-import { derivePinFromPRF } from "@/lib/prf-encryption";
+import { deriveKeyFromPRF } from "@/lib/prf-encryption";
 
-const encryptionKey = derivePinFromPRF(prfOutput);
+const encryptionKey = deriveKeyFromPRF(prfOutput);
 // Returns: 32-char base64 string used as AES encryption key
 ```
 
