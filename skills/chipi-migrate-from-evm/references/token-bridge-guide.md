@@ -25,7 +25,7 @@ When migrating an app from EVM or Solana to StarkNet, your users' existing token
 ### For your app
 - Link to StarkGate from an "Add Funds" page
 - After bridging, users can use their StarkNet tokens in your Chipi-powered app
-- The StarkNet USDC address is: `0x033068f6539f8e6e6b131e6b2b814e6c34a5224bc66947c47dab9dfee93b35fb`
+- Token addresses are listed in the reference table below (verified as of Feb 2026)
 
 ## Option 2: LayerSwap
 
@@ -94,7 +94,7 @@ function FundWallet({ walletAddress }: { walletAddress: string }) {
 }
 ```
 
-## Token Address Reference
+## Token Address Reference (StarkNet Mainnet — as of Feb 2026)
 
 After bridging, tokens arrive at these StarkNet addresses:
 

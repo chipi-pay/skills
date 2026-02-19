@@ -51,8 +51,8 @@
 | | |
 |---|---|
 | **Why on Solana** | Solana has a 1232-byte transaction size limit |
-| **StarkNet equivalent** | No hard transaction size limit |
-| **Fix** | You can batch more calls in StarkNet's `calls[]` array than Solana's instruction list. Don't artificially split transactions. |
+| **StarkNet equivalent** | No small fixed byte limit like Solana, but StarkNet enforces a 5,000-felt calldata limit and resource bounds (L1_GAS, L1_DATA, L2_GAS) |
+| **Fix** | You can batch more calls in StarkNet's `calls[]` array than Solana's instruction list. Don't artificially split transactions, but respect the 5,000-felt calldata limit and resource bounds when batching large operations. |
 
 ### 7. "Insufficient funds for fee" / fee payer errors
 

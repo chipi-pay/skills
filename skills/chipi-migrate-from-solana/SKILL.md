@@ -24,11 +24,11 @@ If the user's existing codebase uses patterns, libraries, or program interaction
 
 > **Why this matters:** Builders on Solana already have working apps, users, and revenue. They're upgrading to get features Solana can't offer natively.
 
-- **Gasless UX** — your users pay zero gas through Chipi (vs ~$0.001 per tx on Solana that still requires SOL)
+- **Gasless UX** — your users pay zero gas through Chipi (vs ~$0.0008–$0.005 per tx on Solana depending on priority fees and network conditions, which still requires SOL)
 - **Native account abstraction** — no Phantom, no seed phrases, passkey auth built in
-- **No rent** — deploy once, stays forever (Solana charges ongoing rent for data storage)
+- **No rent** — deploy once, stays forever (Solana charges rent-exemption deposits, typically ~0.002 SOL for token accounts but varies by data size)
 - **Session keys** — one auth, many txs (no Solana equivalent without custom programs)
-- **ZK security** — validity proofs guarantee correctness (vs Solana's optimistic approach)
+- **ZK security** — validity proofs guarantee correctness (unlike optimistic rollups; Solana uses deterministic execution on L1)
 - **Cairo > Rust** for provable computation (ZK-native language)
 
 ## The Biggest Mental Shifts
@@ -80,7 +80,7 @@ Solana's runtime executes transactions in parallel (Sealevel). StarkNet batches 
 | CPI (cross-program invocation) | Contract-to-contract calls | Native in Cairo |
 | Rent / rent-exempt | No rent concept | One-time deploy cost |
 | Anchor IDL | Cairo ABI (Sierra JSON) | SDK handles encoding |
-| Versioned transactions | Multicall (native) | `calls[]` array |
+| Versioned transactions / address lookup tables | Batched calls (native multicall) | `calls[]` array |
 | Compute budget / priority fees | Not needed | Gasless through Chipi |
 | Base58 addresses | 0x + 64 hex chars (felt252) | SDK handles format |
 
@@ -117,12 +117,12 @@ Anchor IDL:                          Cairo ABI:
 └─ types[]                           └─ structs/enums
 ```
 
-Key difference: Anchor IDL declares account constraints (ownership, mutability, signer). Cairo contracts don't need this — storage is internal to the contract.
+Key difference: Anchor IDL declares account constraints (ownership, mutability, signer) declaratively. In Cairo, you must implement equivalent runtime checks explicitly — use `get_caller_address()` for ownership/signer verification, and access control modifiers for mutability. Storage is internal to the contract, but you still need to guard who can write to it.
 
 ### Check if a StarkNet equivalent exists
 
 Common protocols already on StarkNet:
-- **USDC:** `0x033068f6539f8e6e6b131e6b2b814e6c34a5224bc66947c47dab9dfee93b35fb` (bridged) — verify the current canonical address on [Starkscan](https://starkscan.co) as native USDC may use a different contract
+- **USDC:** `0x033068f6539f8e6e6b131e6b2b814e6c34a5224bc66947c47dab9dfee93b35fb` (as of Feb 2026 — verify on [Starkscan](https://starkscan.co))
 - **ETH:** `0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7`
 - **STRK:** `0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d`
 - **VESU** (lending): Available via Chipi's `useStakeVesuUsdc`

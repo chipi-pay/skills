@@ -229,7 +229,7 @@ const { user, isSignedIn } = useUser();
 // User signs in with email/Google/passkey — wallet is separate
 ```
 
-## Common Token Addresses (StarkNet Mainnet)
+## Common Token Addresses (StarkNet Mainnet — as of Feb 2026)
 
 | Token | EVM Address | StarkNet Address |
 |-------|-------------|-----------------|

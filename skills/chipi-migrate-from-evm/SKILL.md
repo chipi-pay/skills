@@ -1,6 +1,6 @@
 ---
 name: chipi-migrate-from-evm
-description: Migrate an existing EVM (Ethereum, Base, Polygon, Arbitrum, Optimism) dapp to StarkNet with Chipi. Maps familiar concepts (ethers.js, viem, MetaMask, WalletConnect) to Chipi equivalents. Use when user says "migrate from Ethereum", "port my EVM app", "convert from Solidity", "StarkNet equivalent of", or "migrate my dapp".
+description: Migrate an existing EVM (Ethereum, Base, Polygon, Arbitrum, Optimism) dapp to StarkNet with Chipi. Maps familiar concepts (ethers.js, viem/wagmi, MetaMask, WalletConnect) to Chipi equivalents. Use when user says "migrate from Ethereum", "port my EVM app", "convert from Solidity", "StarkNet equivalent of", or "migrate my dapp".
 license: MIT
 metadata:
   author: Chipi Pay
@@ -117,6 +117,21 @@ const address = await signer.getAddress();
 const { wallet, hasWallet } = useChipiWallet();
 const address = wallet?.publicKey;
 // That's it. No provider, no signer, no window.ethereum.
+```
+
+**Code mapping (viem/wagmi → Chipi):**
+
+```tsx
+// BEFORE (wagmi):
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+const { address, isConnected } = useAccount();
+const { connect, connectors } = useConnect();
+const { disconnect } = useDisconnect();
+
+// AFTER (Chipi):
+import { useChipiWallet, useCreateWallet } from "@chipi-stack/nextjs";
+const { wallet, hasWallet } = useChipiWallet();
+// No connectors, no chain switching, no window.ethereum detection.
 ```
 
 ## Step 4: Replace Transaction Layer
