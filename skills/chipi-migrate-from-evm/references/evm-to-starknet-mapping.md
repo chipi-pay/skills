@@ -229,11 +229,11 @@ const { user, isSignedIn } = useUser();
 // User signs in with email/Google/passkey — wallet is separate
 ```
 
-## Common Token Addresses (StarkNet Mainnet)
+## Common Token Addresses (StarkNet Mainnet — as of Feb 2026)
 
 | Token | EVM Address | StarkNet Address |
 |-------|-------------|-----------------|
-| USDC | 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 | 0x053c91253bc9682c04929ca02ed00b3e423f6710d2ee7e0d5ebb06f3ecf368a8 |
+| USDC | 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 | 0x033068f6539f8e6e6b131e6b2b814e6c34a5224bc66947c47dab9dfee93b35fb |
 | ETH | Native / 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2 | 0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7 |
 | STRK | N/A | 0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d |
 

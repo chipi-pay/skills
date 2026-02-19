@@ -53,9 +53,19 @@
       "description": "Design system and UX guidance — typography, color, motion, glassmorphic components, and fintech guardrails."
     },
     {
-      "name": "chipi-migrate-from-evm-solana",
-      "path": "skills/chipi-migrate-from-evm-solana/SKILL.md",
-      "description": "Migrate EVM (Ethereum, Base, Polygon, Arbitrum) or Solana dapps to StarkNet with Chipi — concept mapping, code migration, and asset bridging."
+      "name": "chipi-migrate-from-evm",
+      "path": "skills/chipi-migrate-from-evm/SKILL.md",
+      "description": "Migrate EVM (Ethereum, Base, Polygon, Arbitrum) dapps to StarkNet with Chipi — concept mapping, code migration, and asset bridging."
+    },
+    {
+      "name": "chipi-migrate-from-solana",
+      "path": "skills/chipi-migrate-from-solana/SKILL.md",
+      "description": "Migrate Solana dapps to StarkNet with Chipi — deep Anchor, wallet-adapter, PDA, SPL token, and account model mappings."
+    },
+    {
+      "name": "chipi-debug",
+      "path": "skills/chipi-debug/SKILL.md",
+      "description": "Debug Chipi integrations — wallet errors, failed transactions, session keys, address validation, calldata encoding, and webhook issues."
     }
   ]
 }
