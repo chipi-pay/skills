@@ -19,6 +19,11 @@ Upgrade a PIN-encrypted wallet to passkey (PRF) authentication. After migration,
 - Clerk authentication configured (for metadata storage)
 - Passkey API routes in place (`/api/passkeys/register`, `/api/passkeys/authenticate`)
 
+## When in Doubt, Ask
+If the user's auth setup, storage backend, or browser environment is unclear, ASK before proceeding. PIN-to-passkey migration involves cryptographic operations — assumptions here can lock users out of their wallets.
+
+> **Vertical context:** Used in: any Chipi app upgrading from PIN auth to passkey — fintech wallets, payment apps, DeFi dashboards, or any app where users created wallets with PIN.
+
 ## Step 1: Get the Migration Component
 
 If MCP is connected, call: `get_component_code("migrate-to-passkey-dialog")`
@@ -28,6 +33,8 @@ This provides:
 - `prf-encryption.ts` — Encryption/decryption utilities including `reEncryptPrivateKey`
 - `passkeys.ts` — Passkey types and helpers
 - Passkey API routes (register + authenticate)
+
+> **Why PRF (Pseudo-Random Function):** PRF is a WebAuthn extension that derives a cryptographic key from the passkey. This key is used to encrypt the wallet's private key — so the passkey itself becomes the encryption key. No separate password needed.
 
 Install dependencies:
 ```bash
@@ -131,6 +138,8 @@ The core encryption logic (`reEncryptPrivateKey`) is storage-agnostic — it tak
 ## Security Notes
 
 - **Atomic safety:** If any step fails after PIN verification, the old encrypted key remains untouched in storage. The user can still use their PIN.
+
+> **Why atomic safety matters:** If migration fails halfway (e.g., browser crashes during re-encryption), the old PIN-encrypted key is still intact. The user can still access their wallet with their PIN and try again.
 - **No plaintext persistence:** The decrypted private key exists only in memory during `reEncryptPrivateKey()` and is immediately re-encrypted.
 - **PRF determinism:** The same passkey + salt always produces the same encryption key, so the wallet can be decrypted on subsequent authentications.
 - **One-way migration:** After metadata update, PIN-based decryption will fail because the encrypted payload has changed. This is intentional.
@@ -163,3 +172,9 @@ Key migration-specific rules:
 - **Error recovery**: distinguish PIN errors (show PIN input again) from passkey errors (show Cancel + Retry buttons). Actionable messages: "Passkey registration was cancelled — tap Retry to try again"
 - **Focus management**: trap focus inside the dialog for the entire flow. On success dismiss, return focus to the trigger button that opened the dialog
 - **Responsive**: dialog uses `sm:max-w-md`. PIN input slots scale down to `w-12 h-12` on very small screens if needed. Touch targets for Cancel/Retry buttons: minimum 44x44px
+
+## What's Next
+
+After completing PIN-to-passkey migration, consider these next steps:
+- **Session keys**: Use the passkey-authenticated wallet for session keys to enable one-tap transactions without repeated biometric prompts. See `chipi-session-keys` skill.
+- **Accept payments**: Start accepting payments in your app with the upgraded wallet security. See `chipi-payment-flow` skill.

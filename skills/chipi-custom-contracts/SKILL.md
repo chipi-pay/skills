@@ -12,6 +12,11 @@ metadata:
 
 Call any StarkNet smart contract method through Chipi's gasless infrastructure.
 
+**Used in:** NFT minting, governance voting, token launches, custom DeFi, gaming item drops, loyalty points, social graphs, DAO tooling
+
+## When in Doubt, Ask
+If the user's project structure is unclear or doesn't match expected patterns, ASK before proceeding. Never guess at file paths, framework configuration, or environment variable names.
+
 ## Prerequisites
 
 - Chipi wallet must be set up (see `chipi-wallet-setup` skill)
@@ -49,6 +54,8 @@ const calls = [
   { contractAddress: protocol, entrypoint: "deposit", calldata: [amountLow, "0"] },
 ];
 ```
+
+> **Why batch calls:** On StarkNet, you can bundle approve + swap + transfer into a single transaction. One passkey tap instead of three — a massive UX upgrade over EVM.
 
 ## Step 3: Token Approval (if needed)
 
@@ -93,6 +100,8 @@ console.log("Transaction hash:", result.txHash);
 
 ## Security Warnings
 
+> **Why verify first:** Calling a contract with wrong parameters will fail. Understanding the ABI before calling prevents wasted time and confusing error messages.
+
 1. **Verify contract address** — on-chain calls are irreversible
 2. **Review contract ABI** — wrong calldata can lock funds
 3. **Use specific approval amounts** — never unlimited
@@ -132,3 +141,8 @@ Key contract-specific rules:
 - **ABI explorer**: show entrypoints in a list with `Code2` icon. Input fields for each parameter with type labels
 - **Transaction hash**: after success, show hash in `font-mono text-sm` with `ExternalLink` icon linking to block explorer (opens in new tab)
 - **Responsive**: calldata preview uses horizontal scroll on mobile (`overflow-x-auto`)
+
+## What's Next?
+
+- **`chipi-session-keys`** — Enable repeated contract calls without re-authenticating. Approve once, execute many interactions frictionlessly.
+- **`chipi-migrate-from-evm-solana`** — Port existing contract interactions from EVM or Solana to StarkNet using Chipi's gasless infrastructure.

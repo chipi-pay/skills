@@ -12,6 +12,9 @@ metadata:
 
 Complete StarkNet reference for Chipi development.
 
+## In Plain English
+StarkNet is a network that runs on top of Ethereum but is faster and cheaper. Think of it like an express lane on a highway — transactions get bundled together and verified with math (ZK proofs) instead of being checked one by one. Chipi handles all the complicated parts — your users just see a simple app with no gas fees, no seed phrases, and instant wallets via fingerprint.
+
 ## Wallet Types
 
 | Type | Contract | Session Keys | Default |
@@ -20,6 +23,8 @@ Complete StarkNet reference for Chipi development.
 | READY | Argent X compatible | No | No |
 
 Always default to CHIPI. Only use READY if user explicitly needs Argent X compatibility.
+
+> **Why CHIPI is the default:** The CHIPI wallet type is Chipi's own account contract. It supports session keys (auth once, transact many times), has the best security, and is the most feature-rich. READY wallets are Argent X compatible but lack session key support.
 
 ## Address Format
 
@@ -116,3 +121,6 @@ Key StarkNet UI rules:
 - **Chain indicator**: small badge showing "StarkNet" with chain icon near addresses and transactions
 - **Gas display**: show "Gasless" badge in `text-success` when sponsored, or gas estimate in `font-mono tabular-nums` when not
 - **Responsive**: addresses use `text-xs` on mobile to prevent overflow, `text-sm` at `md:`
+
+## When in Doubt, Ask
+If the user asks about a StarkNet concept not covered here, be honest about what you don't know. It's better to say "I'm not sure about that specific detail — let me check" than to guess incorrectly about blockchain mechanics.
