@@ -49,6 +49,7 @@
 ```
 
 ### Scale (Mobile → Desktop)
+
 | Token | Mobile | Desktop | Usage |
 |-------|--------|---------|-------|
 | `text-xs` | 12px | 12px | Captions, labels |
@@ -61,6 +62,7 @@
 | `text-7xl` | 72px | 72px | Hero headlines |
 
 ### Weight Mapping
+
 | Weight | Class | Usage |
 |--------|-------|-------|
 | 400 | `font-normal` | Body text |
