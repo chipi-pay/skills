@@ -157,6 +157,9 @@ function StepProgress({ steps, currentStep }: { steps: string[]; currentStep: nu
 
 ### After
 ```jsx
+// Requires: npm install sonner
+// Import: import { toast } from "sonner"
+// Wrap app with <Toaster /> provider (see sonner docs)
 const [copied, setCopied] = useState(false);
 
 <Button

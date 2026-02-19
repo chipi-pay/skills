@@ -111,18 +111,22 @@ Base: 4px grid. Use Tailwind spacing utilities.
 
 ## Shadows
 
+These map to Tailwind's `shadow-*` utilities. If defining as CSS custom properties:
+
 ```css
-/* Card default */
-shadow-sm: 0 1px 2px oklch(0 0 0 / 5%);
+:root {
+  /* Card default */
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 5%);
 
-/* Card hover */
-shadow-md: 0 4px 6px oklch(0 0 0 / 7%), 0 2px 4px oklch(0 0 0 / 5%);
+  /* Card hover */
+  --shadow-md: 0 4px 6px oklch(0 0 0 / 7%), 0 2px 4px oklch(0 0 0 / 5%);
 
-/* Dialog */
-shadow-lg: 0 10px 15px oklch(0 0 0 / 10%), 0 4px 6px oklch(0 0 0 / 5%);
+  /* Dialog */
+  --shadow-lg: 0 10px 15px oklch(0 0 0 / 10%), 0 4px 6px oklch(0 0 0 / 5%);
 
-/* Glassmorphic */
-shadow-glass: 0 8px 32px oklch(0 0 0 / 8%);
+  /* Glassmorphic */
+  --shadow-glass: 0 8px 32px oklch(0 0 0 / 8%);
+}
 ```
 
 ## Breakpoints

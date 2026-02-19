@@ -1,6 +1,15 @@
 # Animation Recipes
 
-CSS-first animations using `tw-animate-css` (already installed) plus custom keyframes.
+CSS-first animations using `tw-animate-css` plus custom keyframes.
+
+## Prerequisites
+
+- **Tailwind CSS v4+** (uses `@theme inline` syntax for registering custom animations)
+- **tw-animate-css**: Install with `npm install tw-animate-css`, then import in your CSS:
+  ```css
+  @import "tailwindcss";
+  @import "tw-animate-css";
+  ```
 
 ## Custom Keyframes (add to globals.css)
 
