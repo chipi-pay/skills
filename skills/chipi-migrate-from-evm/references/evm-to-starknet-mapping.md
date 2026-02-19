@@ -1,6 +1,8 @@
-# EVM to StarkNet + Chipi — Function-Level Mapping
+# EVM to StarkNet + Chipi — Quick-Reference Mapping
 
-Detailed mapping of ethers.js / viem patterns to their Chipi SDK equivalents.
+Concise function-level mapping of ethers.js / viem patterns to Chipi SDK equivalents.
+
+> For deep patterns (ethers v5/v6 differences, wagmi hooks, full provider stack removal, multicall, event listening, SIWE, NPM cleanup), see `evm-code-migration-patterns.md`.
 
 ## Provider & Signer
 
@@ -29,6 +31,8 @@ const { data: balance } = useGetTokenBalance({
 });
 // Network is always StarkNet — no network switching needed
 ```
+
+> **ethers.js v5 note:** v5 uses `new ethers.providers.Web3Provider(window.ethereum)` and `ethers.utils.formatEther()`. v6 uses `new ethers.BrowserProvider()` and `ethers.formatEther()`. Both map to the same Chipi hooks. See `evm-code-migration-patterns.md` for detailed v5 patterns.
 
 ### viem
 
@@ -101,42 +105,6 @@ const result = await transfer({
 // Gasless. No gas estimation. No nonce management.
 ```
 
-### Approve + Interact (multicall)
-
-```tsx
-// BEFORE (ethers.js) — 2 separate transactions, 2 gas fees
-const usdc = new ethers.Contract(usdcAddress, erc20Abi, signer);
-const approveTx = await usdc.approve(dexAddress, amount);
-await approveTx.wait();
-const dex = new ethers.Contract(dexAddress, dexAbi, signer);
-const swapTx = await dex.swap(tokenIn, tokenOut, amount);
-await swapTx.wait();
-```
-
-```tsx
-// AFTER (Chipi) — 1 transaction, 0 gas
-import { useCallAnyContract } from "@chipi-stack/nextjs";
-
-const { mutateAsync: callContract } = useCallAnyContract();
-await callContract({
-  encryptKey: passkeyCredential,
-  wallet: userWallet,
-  calls: [
-    {
-      contractAddress: usdcAddress,     // approve
-      entrypoint: "approve",
-      calldata: [dexAddress, amountLow, "0"],
-    },
-    {
-      contractAddress: dexAddress,       // swap
-      entrypoint: "swap",
-      calldata: [tokenIn, tokenOut, amountLow, "0"],
-    },
-  ],
-  bearerToken: process.env.NEXT_PUBLIC_CHIPI_API_KEY!,
-});
-```
-
 ### Balance Check
 
 ```tsx
@@ -187,46 +155,6 @@ const result = await transfer({
   bearerToken: process.env.NEXT_PUBLIC_CHIPI_API_KEY!,
 });
 // No gas limit. No gas estimation. Chipi handles everything.
-```
-
-### Event Listening
-
-```tsx
-// BEFORE (ethers.js)
-const contract = new ethers.Contract(address, abi, provider);
-contract.on("Transfer", (from, to, amount) => {
-  console.log(`Transfer: ${from} → ${to}: ${amount}`);
-});
-```
-
-```tsx
-// AFTER (Chipi) — use transaction history hook
-import { useGetTransactionList } from "@chipi-stack/nextjs";
-
-const { data: transactions } = useGetTransactionList({
-  walletAddress: address,
-});
-// Poll or refetch to detect new transactions
-```
-
-## Auth Patterns
-
-### Sign-In with Ethereum (SIWE)
-
-```tsx
-// BEFORE
-const message = `Sign in to MyApp\nNonce: ${nonce}`;
-const signature = await signer.signMessage(message);
-// Send to backend for verification
-```
-
-```tsx
-// AFTER (Chipi) — standard auth, no wallet signing
-// Use Clerk, Firebase, or Supabase for authentication
-// The wallet is created AFTER auth, not used FOR auth
-import { useUser } from "@clerk/nextjs";
-const { user, isSignedIn } = useUser();
-// User signs in with email/Google/passkey — wallet is separate
 ```
 
 ## Common Token Addresses (StarkNet Mainnet — as of Feb 2026)
