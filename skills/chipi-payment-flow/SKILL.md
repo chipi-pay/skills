@@ -12,11 +12,16 @@ metadata:
 
 Add USDC payment acceptance with two checkout paths: Chipi wallet (passkey/PIN) and external wallet redirect.
 
+**Used in:** e-commerce, merchant checkout, invoicing, tipping apps, subscription billing, freelancer payments, donation platforms
+
 ## Prerequisites
 
 - Chipi providers must be set up (see `chipi-wallet-setup` skill)
 - Merchant wallet address from dashboard.chipipay.com
 - Chipi secret key (sk_prod_) for webhook verification
+
+## When in Doubt, Ask
+If the user's project structure is unclear or doesn't match expected patterns, ASK before proceeding. Never guess at file paths, framework configuration, or environment variable names.
 
 ## Step 1: Verify Wallet Setup
 
@@ -32,6 +37,8 @@ NEXT_PUBLIC_MERCHANT_WALLET=0xYOUR_MERCHANT_WALLET_ADDRESS
 ```
 
 **VERIFY:** `.env.local` has `NEXT_PUBLIC_MERCHANT_WALLET`.
+
+> **Why a separate merchant wallet:** This is the StarkNet address that receives payments. All USDC goes directly to this wallet — Chipi never holds the funds. Self-custody means you control your money.
 
 ## Step 3: Get Payment Component
 
@@ -108,6 +115,8 @@ export async function POST(request: Request) {
 
 **VERIFY:** Webhook endpoint exists and validates signatures.
 
+> **Why HMAC verification:** This proves the webhook came from Chipi, not an attacker trying to fake a payment confirmation. Never skip signature verification in production.
+
 ## Step 6: Test
 
 1. Open payment page
@@ -147,3 +156,8 @@ Key payment-specific rules:
 - **Address validation**: regex `/^0x[a-fA-F0-9]{1,64}$/`, show inline error "Invalid StarkNet address format" in `text-destructive`
 - **Send button**: use `variant="brand"` with `ArrowUpRight` icon (`h-4 w-4`)
 - **Responsive**: amount input full-width on mobile, address field uses `text-sm` to prevent overflow
+
+## What's Next?
+
+- **`chipi-session-keys`** — Enable session keys for repeat payments so users don't need to re-authenticate every transaction.
+- **`chipi-sku-marketplace`** — Sell digital services (airtime, gift cards, bill pay) using the same payment infrastructure.

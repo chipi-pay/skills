@@ -12,11 +12,16 @@ metadata:
 
 Add VESU USDC staking and withdrawal to earn yield on StarkNet.
 
+**Used in:** savings apps, yield aggregators, DeFi dashboards, fintech wallets, treasury management
+
 ## Prerequisites
 
 - Chipi providers + wallet must be set up (see `chipi-wallet-setup` skill)
 - User needs a Chipi wallet with USDC balance
 - VESU is a lending protocol on StarkNet — deposits earn yield automatically
+
+## When in Doubt, Ask
+If the user's project structure is unclear or doesn't match expected patterns, ASK before proceeding. Never guess at file paths, framework configuration, or environment variable names.
 
 ## Step 1: Verify Wallet Setup
 
@@ -102,6 +107,10 @@ export function WithdrawForm({ wallet }: { wallet: any }) {
 - `useStakeVesuUsdc` — Stake USDC (auto-handles token approval)
 - `useWithdrawVesuUsdc` — Withdraw USDC from VESU
 
+> **Why VESU:** VESU is a battle-tested lending protocol on StarkNet. Deposits earn yield automatically from borrower interest — no active management needed.
+
+> **Why auto-approval:** The SDK handles the ERC-20 approve step internally, so you don't need a separate approval transaction. One passkey tap = approve + stake.
+
 ## Key Rules
 
 - VESU is a lending protocol — deposits earn yield automatically
@@ -131,3 +140,8 @@ Key staking-specific rules:
 - **Pending withdrawal**: show amber badge with `Clock` icon + remaining time in `tabular-nums`
 - **Risk indicator**: show protocol info with `Info` icon — "VESU Protocol — Audited DeFi lending"
 - **Responsive**: staking dashboard single-column on mobile, side-by-side (stake form + balance) at `md:`
+
+## What's Next?
+
+- **`chipi-session-keys`** — Enable repeated staking/withdrawal without re-authenticating every time. Approve once, stake many.
+- **`chipi-custom-contracts`** — Interact with other DeFi protocols beyond VESU using arbitrary contract calls.

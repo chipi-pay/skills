@@ -12,6 +12,8 @@ metadata:
 
 Enable frictionless transactions — authenticate once, execute many transactions without re-entering passkey/PIN.
 
+**Used in:** games (approve once, play many turns), social apps (like/tip without re-auth), trading bots, subscription services, high-frequency interactions
+
 ## Critical Prerequisite
 
 **Session keys ONLY work with `walletType: "CHIPI"`.** They do NOT work with READY (Argent X) wallets.
@@ -21,6 +23,9 @@ if (wallet.walletType !== "CHIPI") {
   throw new Error("Session keys require CHIPI wallet type.");
 }
 ```
+
+## When in Doubt, Ask
+If the user's project structure is unclear or doesn't match expected patterns, ASK before proceeding. Never guess at file paths, framework configuration, or environment variable names.
 
 ## Step 1: Verify Wallet Setup
 
@@ -47,6 +52,8 @@ const session = await createSession();
 // Generates keypair locally — no on-chain tx yet
 // sessionState -> "created"
 ```
+
+> **Why allowedMethods:** This is the security boundary. Session keys can ONLY call the methods you specify — a session key for 'transfer' cannot call 'approve'. Principle of least privilege.
 
 ### 3b. Register Session (On-Chain)
 ```tsx
@@ -115,6 +122,8 @@ For fine-grained control:
 
 ## Security Best Practices
 
+> **Why time-limited:** Even if a session key is compromised, it stops working after expiry. Never create unlimited session keys.
+
 - Never persist session private keys in backend — browser/device memory only
 - Always revoke sessions on user logout
 - Default session expiry: 6 hours
@@ -143,3 +152,8 @@ Key session key-specific rules:
 - **Session creation**: use `StepProgress` with steps `["Generate", "Register", "Active"]`. Show `Loader2 animate-spin` during registration
 - **Session list**: card per session with status badge, remaining calls, expiry. Use `hover:-translate-y-0.5` on cards
 - **Responsive**: session cards stack vertically on mobile, 2-column grid at `md:`
+
+## What's Next?
+
+- **`chipi-custom-contracts`** — Call custom contract methods via session keys for fully frictionless DeFi, gaming, or governance interactions.
+- **`chipi-defi-staking`** — Add yield-earning features with VESU USDC staking and withdrawal.

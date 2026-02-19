@@ -12,6 +12,11 @@ metadata:
 
 Set up a complete Chipi wallet integration with passkey authentication, balance display, and USDC transfers.
 
+**Used in:** payment apps, gaming wallets, social tipping, loyalty programs, NFT marketplaces, DeFi dashboards, super-apps
+
+## When in Doubt, Ask
+If the user's project structure is unclear or doesn't match expected patterns, ASK before proceeding. Never guess at file paths, framework configuration, or environment variable names.
+
 ## Prerequisites
 
 - A Next.js, React (Vite/CRA), or Expo project
@@ -61,6 +66,8 @@ Otherwise, wrap your app's layout/root with:
 For Next.js, add to `app/layout.tsx`. For React, add to `main.tsx`. For Expo, add to `App.tsx`.
 
 **VERIFY:** Root layout has ChipiProvider wrapping the app.
+
+> **Why this matters:** The provider initializes Chipi's SDK context so all child components can use wallet hooks. Without it, hooks like useCreateWallet won't work.
 
 ## Step 5: Add Wallet Creation
 
@@ -116,6 +123,8 @@ Only use `"READY"` if the user explicitly needs Argent X wallet app compatibilit
 
 **VERIFY:** Wallet creation component exists with CHIPI + passkey defaults.
 
+> **Why CHIPI wallet type:** This is Chipi's own account contract that supports session keys, meaning users won't need to re-authenticate every transaction. It's the most feature-rich option.
+
 ## Step 6: Add Wallet Summary
 
 If MCP is connected, call: `get_component_code("wallet-summary")`
@@ -130,6 +139,8 @@ The wallet summary displays:
 - USDC balance via `useGetTokenBalance`
 
 **VERIFY:** Wallet summary component exists.
+
+> **Why show balance:** Users need to see their wallet address (to receive funds) and current balance. This builds trust and confirms the wallet is working.
 
 ## Step 7: Add USDC Transfer
 
@@ -218,3 +229,9 @@ Key wallet-specific rules:
 - **Loading**: skeleton placeholder (`animate-pulse bg-muted rounded-lg`) for balance, not spinner
 - **Empty state**: when no wallet exists, show CTA card with `Fingerprint` icon + "Create your wallet" in `text-lg font-semibold`
 - **Responsive**: dialog uses `max-w-[calc(100vw-2rem)] sm:max-w-md`
+
+## What's Next?
+
+- **`chipi-payment-flow`** — Accept USDC payments from customers with merchant checkout and webhook notifications.
+- **`chipi-session-keys`** — Enable background transactions so users don't need to re-authenticate every action.
+- **`chipi-defi-staking`** — Let users stake their USDC to earn yield directly from your app.

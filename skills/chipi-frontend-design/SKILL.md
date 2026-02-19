@@ -10,6 +10,9 @@ tags: [design, ux, frontend, fintech]
 
 Apply these rules to every UI you generate for Chipi-powered applications.
 
+## When in Doubt, Ask
+If the user has an existing design system, brand colors, or specific design requirements, ASK before applying Chipi defaults. The Chipi design system is a starting point — it should complement, not override, the user's brand.
+
 ## Prerequisites
 
 Install these packages before using design recipes:
@@ -30,6 +33,9 @@ npm install tw-animate-css sonner lucide-react
 - **Default pairing**: Plus Jakarta Sans (display/body) + JetBrains Mono (code/data)
 - Headings: `text-5xl` minimum for hero, `text-3xl` for section titles. Use `font-bold` or `font-extrabold`
 - Financial figures: `tabular-nums font-mono` — always. Inconsistent digit widths break scanning
+
+> **Why tabular-nums:** In financial UIs, digits must have consistent widths so columns align and amounts don't jump around when they change. Without tabular-nums, a balance going from $9.99 to $10.00 would shift all surrounding elements.
+
 - Body: `text-base` (16px) minimum. Never smaller than `text-sm` for readable content
 
 ## Color — CSS Variables (OKLCH)
@@ -65,6 +71,8 @@ border border-white/20 dark:border-white/10
 shadow-lg
 ```
 Glass adapts to any background — gradients, images, solid colors.
+
+> **Why glassmorphism:** The frosted glass effect creates visual depth and hierarchy without heavy borders or shadows. It works especially well for overlays and dialogs in financial apps where you want to keep context visible behind the active element.
 
 ## Icon System — Lucide React
 
@@ -140,6 +148,8 @@ Key rules:
 - Step indicators for multi-step flows
 - `aria-label` on icon-only buttons
 - Minimum touch target: 44x44px on mobile
+
+> **Why these rules:** AI-generated UIs tend toward certain patterns (rounded-full avatars, excessive gradients, lorem ipsum). These rules ensure the output looks intentionally designed, not auto-generated.
 
 ## Reference Files
 

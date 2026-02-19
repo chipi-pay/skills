@@ -12,6 +12,8 @@ metadata:
 
 Build a digital service marketplace with 14 categories: airtime, gift cards, gaming credits, and more.
 
+**Used in:** super-apps, fintech wallets, loyalty reward redemption, mobile top-up services, gift card platforms
+
 ## Geographic Availability
 
 **Mexico only.** More countries coming soon. If the user is building for other markets, warn them that SKU purchasing will not work outside Mexico. Suggest wallet and payment features as alternatives that work globally.
@@ -20,6 +22,9 @@ Build a digital service marketplace with 14 categories: airtime, gift cards, gam
 
 - Chipi providers + wallet must be set up (see `chipi-wallet-setup` skill)
 - Users need a Chipi wallet with USDC balance to purchase SKUs
+
+## When in Doubt, Ask
+If the user's project structure is unclear or doesn't match expected patterns, ASK before proceeding. Never guess at file paths, framework configuration, or environment variable names.
 
 ## Step 1: Verify Setup
 
@@ -37,6 +42,8 @@ npx shadcn@latest add pagination --y
 ```
 
 **VERIFY:** `/skus` page exists with SKU grid.
+
+> **Why categories matter:** With 14 categories and hundreds of SKUs, users need filtering to find what they need quickly. Don't show everything at once.
 
 ## Step 3: Get SKU Purchase Component
 
@@ -99,6 +106,8 @@ await purchase({
 
 Each SKU has a specific regex pattern for the reference field (phone number, account ID, etc.). Validate the reference against the SKU's `referencePattern` before submitting.
 
+> **Why dynamic validation:** Each SKU type requires different reference data — a phone top-up needs a phone number, an electricity payment needs a meter number. The SKU's regex pattern ensures valid data before purchasing.
+
 ## Step 7: Test
 
 1. Navigate to `/skus` — verify grid loads with pagination
@@ -137,3 +146,8 @@ Key marketplace-specific rules:
 - **Pagination**: use shadcn Pagination component, show page numbers in `tabular-nums`
 - **Empty state**: "No products available" with `ShoppingBag` icon, not blank page
 - **Responsive**: single-column card grid on mobile, 2 columns at `md:`, 3 at `lg:`
+
+## What's Next?
+
+- **`chipi-payment-flow`** — Accept USDC payments from customers with merchant checkout and webhook notifications.
+- **`chipi-wallet-setup`** — If not already done, set up wallet creation and balance display for your users.
