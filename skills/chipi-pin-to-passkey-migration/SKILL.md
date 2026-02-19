@@ -145,3 +145,21 @@ The core encryption logic (`reEncryptPrivateKey`) is storage-agnostic — it tak
 | "Failed to derive encryption key" | PRF output was null | Retry authentication step; may be a browser issue |
 | Passkey works but old flows still show PIN | `authMethod` not updated in metadata | Check that `storeAuthMethod("prf")` was called and metadata update succeeded |
 | Migration succeeds but TransactionSigner shows PIN | localStorage has stale `chipi_auth_method` | Clear localStorage or call `storeAuthMethod("prf")` explicitly |
+
+## UI Guidance
+
+> **Load `chipi-frontend-design` before generating any UI for this feature.**
+
+Key migration-specific rules:
+- **Step progress**: use `StepProgress` component with 5 steps: `["Verify PIN", "Register", "Authenticate", "Encrypt", "Done"]`. Active step uses `--accent` token, completed steps filled solid
+- **Step labels**: show current step label below the progress bar in `text-sm font-medium text-muted-foreground` — users must always know which step they are on
+- **Safety messaging**: show `ShieldCheck` icon (`h-5 w-5 text-success`) + "Your PIN still works until migration completes" in `text-muted-foreground`. This is critical for user confidence — display it on every step except Done
+- **PIN input**: use `InputOTP` with 4 masked slots (`mask` prop). Each slot: `w-14 h-14 text-xl border-2`. Disable during processing with `disabled={isProcessing}`. Auto-focus first slot on mount
+- **PIN error state**: on wrong PIN, shake the input group (`animate-shake` for 300ms), clear all slots, re-focus first slot. Show "Incorrect PIN — please try again" in `text-sm text-destructive`
+- **Biometric prompt**: show `Fingerprint` icon (`h-12 w-12 text-accent animate-pulse`) centered with "Follow your device's biometric prompt" in `text-sm text-muted-foreground`
+- **Processing guard**: show "Do not close this window..." in `text-xs text-muted-foreground animate-pulse` during all processing steps. Hide close button with `showCloseButton={false}`. Disable dialog escape/backdrop click
+- **Encryption step**: show `Lock` icon + "Re-encrypting your private key..." — never expose raw key material in the UI. Progress is indeterminate (spinner, not percentage)
+- **Success**: SVG checkmark-draw celebration (`animate-checkmark` + `animate-scale-bounce`) in emerald circle (`bg-emerald-500/20 border-2 border-emerald-500`). Message: "Your wallet is now protected by your passkey". Show a "Done" button that closes the dialog
+- **Error recovery**: distinguish PIN errors (show PIN input again) from passkey errors (show Cancel + Retry buttons). Actionable messages: "Passkey registration was cancelled — tap Retry to try again"
+- **Focus management**: trap focus inside the dialog for the entire flow. On success dismiss, return focus to the trigger button that opened the dialog
+- **Responsive**: dialog uses `sm:max-w-md`. PIN input slots scale down to `w-12 h-12` on very small screens if needed. Touch targets for Cancel/Retry buttons: minimum 44x44px

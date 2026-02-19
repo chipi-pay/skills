@@ -133,3 +133,17 @@ export async function POST(request: Request) {
 | "Merchant wallet not set" | Add NEXT_PUBLIC_MERCHANT_WALLET to .env.local |
 | "Payment failed" | Check sender balance, verify amounts |
 | "Webhook not receiving" | Ensure endpoint is publicly accessible |
+
+## UI Guidance
+
+> **Load `chipi-frontend-design` before generating any UI for this feature.**
+
+Key payment-specific rules:
+- **Amount inputs**: `font-mono tabular-nums pl-7` with `$` prefix (absolute positioned) and `USDC` suffix label. Add `aria-label="Amount in USDC"` and `inputMode="decimal"`
+- **Confirmation dialog**: always show recipient (`font-mono text-sm` truncated), amount (`font-mono tabular-nums`), and "Network fee: gasless" before auth prompt
+- **Transaction signing**: use `TransactionSigner` with step indicator (Authenticating → Signing → Done). Color: `--accent` for active steps
+- **Success**: SVG checkmark-draw celebration (`animate-checkmark` + `animate-scale-bounce`), auto-dismiss after 3s
+- **Error messages**: actionable format — "Insufficient balance: you have $4.50 but tried to send $10.00" not "Transfer failed". Use `getTransferErrorMessage()` pattern from `anti-slop-fintech.md`
+- **Address validation**: regex `/^0x[a-fA-F0-9]{1,64}$/`, show inline error "Invalid StarkNet address format" in `text-destructive`
+- **Send button**: use `variant="brand"` with `ArrowUpRight` icon (`h-4 w-4`)
+- **Responsive**: amount input full-width on mobile, address field uses `text-sm` to prevent overflow
