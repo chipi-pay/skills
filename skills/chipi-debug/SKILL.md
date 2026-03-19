@@ -45,7 +45,9 @@ Error received
 │  (u256 encoding, argument order, type mismatch)
 ├─ Webhook-related? → Step 8
 │  (HMAC mismatch, no webhook received, parsing error)
-└─ Migration-specific? → Step 9
+├─ x402 payment-related? → Step 9
+│  (402 Payment Required, X-PAYMENT header, facilitator, nonce)
+└─ Migration-specific? → Step 10
    (EVM/Solana patterns that don't apply on StarkNet)
 ```
 
@@ -211,7 +213,18 @@ export async function POST(request: Request) {
 }
 ```
 
-## Step 9: Migration-Specific Errors
+## Step 9: x402 Payment Debugging
+
+| Error | Cause | Diagnostic Steps | Fix |
+|-------|-------|-----------------|-----|
+| "402 Payment Required" with no retry | Client not handling 402 flow | Check if using `payFetch` from `useX402Payment` instead of regular `fetch` | Replace `fetch()` with `payFetch()` from the hook |
+| "Payment amount exceeds maximum" | Server price > client `maxAmount` | Compare server's `amount` in 402 response to client's `maxAmount` config | Raise `maxAmount` in `useX402Payment` config or lower server price |
+| "Unsupported network/scheme/asset" | Client and server disagree on network or asset | Check both sides use `starknet-mainnet` and `USDC` | Align network and asset config on client and server |
+| "Nonce already used (replay)" | Duplicate payment nonce submitted | Each request needs a unique nonce. Check for duplicate/retried requests | Ensure each payment generates a fresh nonce. Don't retry with the same signed payment |
+| "Facilitator verification failed" | `facilitatorUrl` mismatch or facilitator down | Check `facilitatorUrl` matches on both sides. Test facilitator endpoint directly. | Use `https://x402.org/facilitator` on both client and server |
+| "Insufficient USDC balance" | Payer wallet doesn't have enough USDC for the request | Check wallet USDC balance with `useGetTokenBalance` | Fund the wallet with USDC before calling paid endpoints |
+
+## Step 10: Migration-Specific Errors
 
 ### EVM Patterns That Don't Apply
 
@@ -256,6 +269,7 @@ All Chipi hooks can produce errors. The most common error-producing hooks:
 - `useCallAnyContract` — calldata, contract, entrypoint issues
 - `useChipiSession` / session hooks — wallet type, expiry, scope issues
 - `usePurchaseSku` — reference validation, balance issues
+- `useX402Payment` — 402 flow, facilitator, nonce, amount issues
 
 ## UI Guidance
 
@@ -283,3 +297,4 @@ Based on the error type, the user may need:
 - `chipi-custom-contracts` — for contract call issues
 - `chipi-migrate-from-evm` — for EVM migration errors
 - `chipi-migrate-from-solana` — for Solana migration errors
+- `chipi-x402-payments` — for x402 pay-per-request issues
