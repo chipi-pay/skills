@@ -76,7 +76,7 @@ function PremiumContent() {
 | wallet | object | Yes | Chipi wallet object |
 | encryptKey | string | Yes | PIN or passkey-derived key |
 | bearerToken | string | Yes | Chipi API key (`pk_prod_`) |
-| facilitatorUrl | string | No | Default: `https://x402.org/facilitator` |
+| facilitatorUrl | string | No | Default: `https://x402.chipipay.com` |
 | maxAmount | string | No | Max USDC per request (safety cap). Default: `"1.00"` |
 
 ### Hook Returns
@@ -106,7 +106,7 @@ const app = express();
 app.use("/api/premium", x402Middleware({
   amount: "0.10",                              // USDC per request
   recipient: process.env.MERCHANT_WALLET!,     // Your StarkNet wallet
-  facilitatorUrl: "https://x402.org/facilitator",
+  facilitatorUrl: "https://x402.chipipay.com",
   network: "starknet-mainnet",
   asset: "USDC",
 }));
@@ -125,7 +125,7 @@ import { x402Middleware } from "@chipi-stack/x402";
 const paywall = x402Middleware({
   amount: "0.05",
   recipient: process.env.MERCHANT_WALLET!,
-  facilitatorUrl: "https://x402.org/facilitator",
+  facilitatorUrl: "https://x402.chipipay.com",
   network: "starknet-mainnet",
   asset: "USDC",
 });
@@ -153,7 +153,7 @@ app.add_middleware(
     x402_middleware,
     amount="0.10",
     recipient=os.environ["MERCHANT_WALLET"],
-    facilitator_url="https://x402.org/facilitator",
+    facilitator_url="https://x402.chipipay.com",
     network="starknet-mainnet",
     asset="USDC",
 )
@@ -169,7 +169,7 @@ async def premium():
 |-------|------|----------|-------------|
 | amount | string | Yes | USDC price per request (e.g. `"0.10"`) |
 | recipient | string | Yes | Your StarkNet wallet address |
-| facilitatorUrl | string | Yes | `https://x402.org/facilitator` |
+| facilitatorUrl | string | Yes | `https://x402.chipipay.com` |
 | network | string | Yes | `starknet-mainnet` |
 | asset | string | Yes | `USDC` |
 
@@ -194,7 +194,7 @@ if (!paymentHeader) {
     asset: "USDC",
     network: "starknet-mainnet",
     recipient: process.env.MERCHANT_WALLET,
-    facilitatorUrl: "https://x402.org/facilitator",
+    facilitatorUrl: "https://x402.chipipay.com",
   }, { status: 402 });
 }
 
@@ -288,7 +288,7 @@ MERCHANT_WALLET=0xYOUR_STARKNET_WALLET_ADDRESS
 ## Key Rules
 
 - Payments are in USDC on StarkNet mainnet (6 decimals)
-- The facilitator at `https://x402.org` handles verification and settlement
+- The facilitator at `https://x402.chipipay.com` handles verification and settlement
 - All transactions are gasless for the payer
 - Each payment has a unique nonce for replay protection
 - `maxAmount` on the client prevents unexpectedly large charges

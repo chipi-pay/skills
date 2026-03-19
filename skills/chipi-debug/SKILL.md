@@ -221,7 +221,7 @@ export async function POST(request: Request) {
 | "Payment amount exceeds maximum" | Server price > client `maxAmount` | Compare server's `amount` in 402 response to client's `maxAmount` config | Raise `maxAmount` in `useX402Payment` config or lower server price |
 | "Unsupported network/scheme/asset" | Client and server disagree on network or asset | Check both sides use `starknet-mainnet` and `USDC` | Align network and asset config on client and server |
 | "Nonce already used (replay)" | Duplicate payment nonce submitted | Each request needs a unique nonce. Check for duplicate/retried requests | Ensure each payment generates a fresh nonce. Don't retry with the same signed payment |
-| "Facilitator verification failed" | `facilitatorUrl` mismatch or facilitator down | Check `facilitatorUrl` matches on both sides. Test facilitator endpoint directly. | Use `https://x402.org/facilitator` on both client and server |
+| "Facilitator verification failed" | `facilitatorUrl` mismatch or facilitator down | Check `facilitatorUrl` matches on both sides. Test facilitator endpoint directly. | Use `https://x402.chipipay.com` on both client and server |
 | "Insufficient USDC balance" | Payer wallet doesn't have enough USDC for the request | Check wallet USDC balance with `useGetTokenBalance` | Fund the wallet with USDC before calling paid endpoints |
 
 ## Step 10: Migration-Specific Errors
