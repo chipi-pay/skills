@@ -71,6 +71,11 @@
       "name": "chipi-debug",
       "path": "skills/chipi-debug/SKILL.md",
       "description": "Debug Chipi integrations — wallet errors, failed transactions, session keys, address validation, calldata encoding, and webhook issues."
+    },
+    {
+      "name": "chipi-passkey-troubleshooting",
+      "path": "skills/chipi-passkey-troubleshooting/SKILL.md",
+      "description": "Debug passkey & PIN auth issues — encryption version mismatches, PRF failures, migration errors, multi-device, decryption failures."
     }
   ]
 }
