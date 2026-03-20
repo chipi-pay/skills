@@ -61,6 +61,9 @@ Error received
 | "Invalid PIN" | Wrong encryption key provided | User entered the wrong 4-digit PIN | Prompt user to re-enter PIN. No retry limit in SDK (implement your own). |
 | PRF returns null | Device supports WebAuthn but not the PRF extension | Call `isPRFSupported()` to check. Safari on iOS <17 lacks PRF. | Fall back to PIN auth. Consider showing "Upgrade to passkey" later. |
 | "Wallet already exists" | Attempting to create a second wallet for the same user | Check `hasWallet` before calling `useCreateWallet` | Skip wallet creation. Use `useChipiWallet` to access existing wallet. |
+| "WALLET_NOT_COMPATIBLE" | Attempting session keys on READY wallet | Check `wallet.walletType`. READY wallets don't support sessions. | Upgrade to CHIPI using `sdk.prepareWalletUpgrade()` + `sdk.executeWalletUpgrade()`. |
+| "WALLET_CLASS_HASH_NOT_FOUND" | Custom wallet type not registered | Check if `customWalletTypes` is configured in SDK init | Register the class hash via `customWalletTypes` in SDK config. |
+| "PAYMASTER_INCOMPATIBLE" | Wallet missing SNIP-9 support | Wallet class hash doesn't implement `outside_execution_v2` | Use a SNIP-9 compatible account or upgrade the wallet. |
 
 ## Step 3: Transaction Debugging
 
@@ -71,6 +74,8 @@ Error received
 | "Invalid amount" | Amount is 0, negative, or malformed | Check that amount > 0 and is a valid number | Pass a positive number. SDK handles decimals. |
 | Transaction timeout | Transaction submitted but not confirmed in time | Check StarkNet network status. It may be temporary congestion. | Retry the transaction. If persistent, check if the wallet has been deployed. |
 | "EXECUTION_FAILED" | On-chain execution reverted | Check the transaction on Starkscan/Voyager for revert reason. | Fix the calldata or check contract requirements. |
+| "Transaction not found" | Hash/ID doesn't match any record | Use `sdk.getTransaction(hashOrId)` or `sdk.getTransactionStatus(hash)` to verify. Check if hash is correct. | Verify the hash. If just submitted, wait a few seconds and retry. |
+| Upgrade failed | Wallet upgrade transaction reverted | Check `sdk.getTransactionStatus(hash)` for `revertReason`. Verify wallet is compatible with target class hash. | Ensure wallet supports the upgrade path. Check class hash compatibility. |
 
 ## Step 4: Session Key Debugging
 
