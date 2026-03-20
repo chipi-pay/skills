@@ -23,7 +23,7 @@ Before debugging, ask the user for:
 
 ## Step 1: Identify the Problem
 
-```
+```text
 Authentication error
 ├─ Decryption failed? → Step 2
 │  ("wrong key", empty result, corrupted data)
