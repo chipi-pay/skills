@@ -28,7 +28,7 @@ Always default to CHIPI. Only use READY if user explicitly needs Argent X compat
 
 ### CHIPI Class Hash Versions
 
-The current default is **v33** (`0x0484bbd...`). Legacy versions (v28-v32) are recognized automatically. Wallets on older versions can upgrade via `prepareWalletUpgrade()` + `executeWalletUpgrade()`.
+The current default is **v33** (`0x0484bbd2404b3c7264bea271f7267d6d4004821ac7787a9eed7f472e79ef40d1`). Legacy versions (v28-v32) are recognized automatically. Wallets on older versions can upgrade via `prepareWalletUpgrade()` + `executeWalletUpgrade()`.
 
 Custom class hashes can be passed via `classHash` param in `createWallet()` for community account implementations.
 
