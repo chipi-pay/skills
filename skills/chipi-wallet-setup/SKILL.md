@@ -196,11 +196,12 @@ const upgrade = await sdk.prepareWalletUpgrade({
   walletAddress: "0x...",
 });
 
-// Sign with user's key, then execute
+// User signs on the CLIENT (browser/app), sends signature to your backend.
+// Your backend then calls executeWalletUpgrade with the signature.
 const result = await sdk.executeWalletUpgrade({
   walletAddress: "0x...",
   typedData: upgrade.typedData,
-  signature: [sig.r, sig.s],
+  signature: [sig.r, sig.s], // received from client
 });
 ```
 
