@@ -186,6 +186,31 @@ export default function WalletPage() {
 
 **VERIFY:** Wallet page conditionally renders create or summary+send.
 
+## Wallet Upgrades (Server-Only)
+
+If a user has an older wallet (READY or older CHIPI version), they can upgrade:
+
+```typescript
+// Backend only — requires secret key
+const upgrade = await sdk.prepareWalletUpgrade({
+  walletAddress: "0x...",
+});
+
+// User signs on the CLIENT (browser/app), sends signature to your backend.
+// Your backend then calls executeWalletUpgrade with the signature.
+const result = await sdk.executeWalletUpgrade({
+  walletAddress: "0x...",
+  typedData: upgrade.typedData,
+  signature: [sig.r, sig.s], // received from client
+});
+```
+
+**Wallet type notes:**
+- CHIPI (default) — Latest is v33 with spending policy + audit fixes
+- READY — Argent X compatible, no session keys
+- CHIPI wallets can upgrade between versions (e.g., v29 → v33)
+- READY wallets can upgrade to CHIPI
+
 ## Step 9: Verification Checklist
 
 - [ ] Correct SDK package installed for the framework

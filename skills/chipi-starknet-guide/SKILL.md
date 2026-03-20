@@ -26,6 +26,12 @@ Always default to CHIPI. Only use READY if user explicitly needs Argent X compat
 
 > **Why CHIPI is the default:** The CHIPI wallet type is Chipi's own account contract. It supports session keys (auth once, transact many times), has the best security, and is the most feature-rich. READY wallets are Argent X compatible but lack session key support.
 
+### CHIPI Class Hash Versions
+
+The current default is **v33** (`0x0484bbd2404b3c7264bea271f7267d6d4004821ac7787a9eed7f472e79ef40d1`). Legacy versions (v28-v32) are recognized automatically. Wallets on older versions can upgrade via `prepareWalletUpgrade()` + `executeWalletUpgrade()`.
+
+Custom class hashes can be passed via `classHash` param in `createWallet()` for community account implementations.
+
 ## Address Format
 
 - Format: `0x` + 64 hexadecimal characters (256-bit)
@@ -50,6 +56,19 @@ PENDING -> PROCESSING -> COMPLETED
 ```
 
 Average confirmation: ~15-30 seconds on StarkNet.
+
+### On-Chain Status (via `getTransactionStatus`)
+
+| Status | Description | Terminal |
+|--------|-------------|----------|
+| RECEIVED | Transaction received by node | No |
+| PENDING | Waiting for inclusion | No |
+| ACCEPTED_ON_L2 | Confirmed on StarkNet L2 | No |
+| ACCEPTED_ON_L1 | Proven on Ethereum L1 | Yes |
+| REJECTED | Rejected by sequencer | Yes |
+| REVERTED | Execution reverted on-chain | Yes |
+
+Use `sdk.getTransactionStatus(hash)` for on-chain status. The `useGetTransactionStatus` hook polls every 3 seconds and auto-stops on terminal statuses.
 
 ## Authentication
 
