@@ -307,5 +307,7 @@ MERCHANT_WALLET=0xYOUR_STARKNET_WALLET_ADDRESS
 
 ## What's Next?
 
+- **`chipi-spending-policies`** — Add on-chain budget control to session keys used for x402 payments. Max per call, max per day.
+- **`chipi-monetize-api`** — Full guide for API monetization: x402 + session keys + spending policies.
 - **`chipi-session-keys`** — Combine with session keys for automated payments without per-request auth.
 - **`chipi-custom-contracts`** — Gate custom contract calls behind x402 payments.

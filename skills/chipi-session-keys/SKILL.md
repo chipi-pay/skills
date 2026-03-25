@@ -155,5 +155,7 @@ Key session key-specific rules:
 
 ## What's Next?
 
+- **`chipi-spending-policies`** — Set per-token spending caps on session keys. Essential for AI agents, games, and any autonomous operation.
+- **`chipi-monetize-api`** — Combine session keys + x402 + spending policies to earn USDC from API calls.
 - **`chipi-custom-contracts`** — Call custom contract methods via session keys for fully frictionless DeFi, gaming, or governance interactions.
 - **`chipi-defi-staking`** — Add yield-earning features with VESU USDC staking and withdrawal.

@@ -1,6 +1,6 @@
 {
   "name": "chipi-pay-skills",
-  "description": "Chipi Pay — self-custody StarkNet wallets, USDC payments, x402 pay-per-request APIs, session keys, SKU marketplace, and DeFi staking for Next.js, React, Expo, or REST API.",
+  "description": "Chipi Pay — self-custody StarkNet wallets, stablecoin payments, x402 pay-per-request APIs, session keys with spending policies, API monetization, and DeFi staking for Next.js, React, Expo, Python, or REST API.",
   "version": "1.2.0",
   "author": "Chipi Pay",
   "homepage": "https://www.chipipay.com/",
@@ -76,6 +76,16 @@
       "name": "chipi-passkey-troubleshooting",
       "path": "skills/chipi-passkey-troubleshooting/SKILL.md",
       "description": "Debug passkey & PIN auth issues — encryption version mismatches, PRF failures, migration errors, multi-device, decryption failures."
+    },
+    {
+      "name": "chipi-spending-policies",
+      "path": "skills/chipi-spending-policies/SKILL.md",
+      "description": "Set per-token spending caps on session keys — AI agent budgets, game limits, employee wallets. On-chain enforcement via CHIPI v33 wallet contract."
+    },
+    {
+      "name": "chipi-monetize-api",
+      "path": "skills/chipi-monetize-api/SKILL.md",
+      "description": "Earn USDC from every API call with x402 + session keys + spending policies. TypeScript + Python. No subscriptions, no billing dashboards."
     }
   ]
 }
