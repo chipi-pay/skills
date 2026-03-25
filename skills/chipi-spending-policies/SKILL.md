@@ -1,3 +1,13 @@
+---
+name: chipi-spending-policies
+description: Set per-token spending caps on session keys — AI agent budgets, game limits, employee wallets. On-chain enforcement via CHIPI v33 wallet contract. Use when user says "spending policy", "spending caps", "budget control", "session key limits", "maxPerCall", "maxPerWindow", or "token allowance".
+license: MIT
+metadata:
+  author: Chipi Pay
+  version: 1.0.0
+  mcp-server: chipi-registry
+---
+
 # Spending Policies — Budget Control for Session Keys
 
 Set per-token spending caps on session keys. The CHIPI v33 wallet contract enforces limits automatically during transaction execution. No backend enforcement needed.
@@ -17,10 +27,17 @@ After creating and registering a session key, before the session starts executin
 
 - CHIPI v33 wallet (v29 does not have spending policy entrypoints)
 - Session key registered on-chain
-- `@chipi-stack/nextjs@latest` or `@chipi-stack/backend@latest`
+- `@chipi-stack/nextjs@latest` (frontend) or `@chipi-stack/backend@latest` (server)
 
 ```bash
+# Frontend (Next.js / React)
 npm install @chipi-stack/nextjs@latest
+
+# Backend (Node.js)
+npm install @chipi-stack/backend@latest
+
+# Python
+pip install chipi-python
 ```
 
 ## Backend SDK
@@ -124,11 +141,15 @@ The contract enforces during `__execute__()` on session-signed transactions:
 - **Auto-reset:** window resets when duration passes
 - **Owner bypass:** owner signatures skip enforcement entirely
 
+## When in Doubt, Ask
+
+If you're unsure about wallet type (CHIPI vs READY), class hash version (v29 vs v33), or whether the session key is registered, ask the user before proceeding. Don't guess env vars or wallet addresses.
+
 ## Next Steps
 
-- Combine with [x402 payments](/guides/x402-payments) for automated API monetization
-- See [session keys](/guides/session-keys) for the full session lifecycle
-- [Upgrade to v33](/guides/wallet-upgrades) if your wallets are on v29
+- Combine with [x402 payments](https://chipipay.com/guides/x402-payments) for automated API monetization
+- See [session keys](https://chipipay.com/guides/session-keys) for the full session lifecycle
+- [Upgrade to v33](https://chipipay.com/guides/wallet-upgrades) if your wallets are on v29
 
 ## Documentation
 

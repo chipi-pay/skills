@@ -1,3 +1,13 @@
+---
+name: chipi-monetize-api
+description: Earn USDC from every API call with x402 + session keys + spending policies. Server middleware returns 402, clients pay stablecoins on StarkNet. Use when user says "monetize API", "API payments", "pay per request", "x402 server", "earn from API", "API revenue", or "charge per call".
+license: MIT
+metadata:
+  author: Chipi Pay
+  version: 1.0.0
+  mcp-server: chipi-registry
+---
+
 # Monetize Your API with Stablecoin Micropayments
 
 Earn USDC from every API call. Servers return HTTP 402, clients pay with stablecoins on StarkNet, requests are fulfilled automatically. No subscriptions, no billing dashboards, no invoices. AI agents pay per request via session keys.
@@ -29,6 +39,7 @@ import express from "express";
 import { x402Middleware } from "@chipi-stack/backend";
 
 const app = express();
+app.use(express.json());
 
 app.use("/api/inference", x402Middleware({
   amount: "0.003",                            // USDC per request
@@ -50,6 +61,7 @@ app.listen(3000);
 
 ```bash
 pip install chipi-python fastapi uvicorn
+# chipi-python is the Python SDK (import as chipi_sdk)
 ```
 
 ```python
@@ -114,6 +126,10 @@ await sdk.sessions.setSpendingPolicy({
 1. **Client-side:** `maxPaymentAmount` on X402Client (early rejection, saves gas)
 2. **Session limit:** `maxCalls` on session key (total transaction count)
 3. **Spending policy:** `maxPerCall` + `maxPerWindow` (USDC amount, enforced on-chain)
+
+## When in Doubt, Ask
+
+If you're unsure about the merchant wallet address, facilitator URL, pricing model, or whether to use session keys, ask the user before proceeding. Don't guess env vars or wallet addresses.
 
 ## Documentation
 
